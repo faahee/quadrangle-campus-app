@@ -5,8 +5,8 @@
 <h1 align="center">Quadrangle — Student Campus App</h1>
 
 <p align="center">
-  A classic, fully interactive university dashboard built with <b>Flutter</b>,<br>
-  designed around meaningful use of the <code>Container</code> widget.
+  A classic, animated and fully interactive university dashboard built with <b>Flutter</b>,<br>
+  designed around meaningful use of the <code>Container</code> widget — responsive from phone to desktop.
 </p>
 
 <p align="center">
@@ -31,6 +31,7 @@
 - [Demo](#demo)
 - [Screenshots](#screenshots)
 - [How it works](#how-it-works)
+- [Animations & motion](#animations--motion)
 - [Architecture](#architecture)
 - [Design system](#design-system)
 - [Getting started](#getting-started)
@@ -64,6 +65,10 @@ and filtered.
 | | Feature | Details |
 |---|---|---|
 | 🏛️ | **Dashboard** | Greeting that changes with the time of day, student profile, semester badges, notification bell with live unread count |
+| 🖥️ | **Responsive layout** | One column on phones, a two-column dashboard on desktop (≥ 1000 px) with a floating *“Your day at a glance”* card and today's class timeline |
+| ✨ | **Scroll animations** | Parallax header, cards that float up over the header, scroll-reveal sections, staggered cards, count-up numbers, live news marquee, hover lift |
+| 🧭 | **Floating nav bar** | Detached frosted-glass pill with a raised **+** button; hides while scrolling down and returns when scrolling up |
+| ⚡ | **Quick actions** | The **+** button opens a sheet of one-tap shortcuts (pay fees, book a room, new ticket, timetable, events, digital ID) |
 | 🎓 | **Academic snapshot** | CGPA, credits and attendance with progress bars, plus an advisor appointment strip |
 | ⏰ | **Up next** | Automatically finds the next class from the timetable |
 | 🧭 | **Quick access** | Eight reusable `CampusActionCard`s in a responsive grid (2 columns on phones, 4 on tablets) |
@@ -78,17 +83,28 @@ and filtered.
 | 👥 | **Clubs** | Category filters, join / leave with live member counts |
 | 🛟 | **Helpdesk** | Contact options, validated ticket form, ticket history, and FAQs |
 | 🪪 | **Profile** | Digital student ID card, editable preferred name, settings, sign-out flow |
-| ♿ | **Accessibility** | 48 px touch targets, semantic labels on cards, readable text sizes and contrast |
+| ♿ | **Accessibility** | 48 px touch targets, semantic labels on cards, readable text sizes and contrast, *Reduce motion* support |
 
 ## Demo
 
 <p align="center">
-  <img src="docs/demo.gif" alt="Animated walkthrough of the app" width="300">
+  <img src="docs/demo.gif" alt="Screen recording of the scroll animations, floating nav bar and quick actions" width="300">
 </p>
+
+<p align="center"><sub>Real screen recording: count-up numbers → scroll-reveal sections and sticky bar → floating nav hides and returns → quick actions sheet.</sub></p>
 
 <p align="center"><b>Try it yourself:</b> <a href="https://faahee.github.io/quadrangle-campus-app/">faahee.github.io/quadrangle-campus-app</a></p>
 
 ## Screenshots
+
+### Desktop
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/00-desktop-home.png" width="480"><br><sub><b>Two-column dashboard with floating “day at a glance” card</b></sub></td>
+    <td align="center"><img src="docs/screenshots/00-desktop-scrolled.png" width="480"><br><sub><b>Scrolled: sticky bar, event grid and latest alerts</b></sub></td>
+  </tr>
+</table>
 
 ### Home dashboard
 
@@ -97,6 +113,7 @@ and filtered.
     <td align="center"><img src="docs/screenshots/01-home.png" width="230"><br><sub><b>Header & academic snapshot</b></sub></td>
     <td align="center"><img src="docs/screenshots/02-quick-access.png" width="230"><br><sub><b>Quick access grid</b></sub></td>
     <td align="center"><img src="docs/screenshots/03-campus-update.png" width="230"><br><sub><b>Campus update & student life</b></sub></td>
+    <td align="center"><img src="docs/screenshots/20-quick-actions.png" width="230"><br><sub><b>Quick actions (+ button)</b></sub></td>
   </tr>
 </table>
 
@@ -175,7 +192,10 @@ and filtered.
 
 | Where | Action |
 |---|---|
-| Bell icon (header) | Opens the Alerts tab — badge shows the unread count |
+| **+** (centre of the nav bar) | Opens *Quick actions* — pay fees, book a study room, new ticket, timetable, events, digital ID |
+| Bell icon (header / sticky bar) | Opens the Alerts tab — badge shows the unread count |
+| Sticky bar title | Smoothly scrolls the dashboard back to the top |
+| **LIVE** news ticker | Opens the Alerts tab |
 | Avatar (header) | Opens the Profile tab |
 | CGPA / Credits / Attendance | Open Results / Attendance |
 | Advisor strip | Dialog → confirm appointment (SnackBar feedback) |
@@ -195,13 +215,33 @@ and filtered.
 | Alerts | Filter chips, *Mark all read*, open details, copy to clipboard |
 | Profile | Digital ID, Edit name, copy email / phone, settings switches, About, Sign out |
 
+## Animations & motion
+
+All motion is built with the Flutter SDK only, lives in
+[`lib/widgets/animations.dart`](lib/widgets/animations.dart), and switches off
+automatically when the device's **Reduce motion** accessibility setting is on.
+
+| Effect | Where you see it | How it works |
+|---|---|---|
+| **Scroll reveal** | Every dashboard section and card | `Reveal` listens to the nearest vertical scroll position and, the first time the widget enters the screen, fades it in while sliding it up (or in from the left / right on desktop) |
+| **Staggered cards** | Quick access grid, events, latest alerts | Each card gets a small extra delay based on its position in the row |
+| **Float-up hero** | Academic snapshot and first row | The body overlaps the header; the overlap grows as you scroll, so the cards appear to float up over it |
+| **Parallax header** | Header content and crest watermark | Content drifts and fades at a different speed from the page scroll |
+| **Sticky compact bar** | Top of the dashboard | Fades and slides in once the header has scrolled away; tap the title to scroll back to the top |
+| **Floating elements** | Avatar, crest, desktop “day at a glance” card and badge | `Floating` bobs its child gently on a sine wave, each with its own speed and phase |
+| **Count-up & bars** | CGPA, credits, attendance | `CountUp` and `AnimatedBar` animate from zero with an ease-out curve |
+| **News marquee** | LIVE ticker | `Marquee` scrolls an endless list with a `Ticker`, faded at both edges with a `ShaderMask` |
+| **Hover lift** | Cards on desktop / web | `HoverLift` raises the card and deepens its shadow while the mouse is over it |
+| **Floating nav bar** | Bottom of every tab | Frosted glass (`BackdropFilter`), animated selection pill, raised **+** that rotates to **×**; slides away on scroll down and returns on scroll up |
+| **Quick actions sheet** | **+** button | Tiles pop in one after another using staggered `Interval` curves |
+
 ## Architecture
 
 The app uses **only the Flutter SDK** — no third-party packages.
 
 ```mermaid
 flowchart TD
-    A["main.dart<br/>MaterialApp + AppStateScope"] --> B["HomeShell<br/>NavigationBar + IndexedStack"]
+    A["main.dart<br/>MaterialApp + AppStateScope"] --> B["HomeShell<br/>FloatingNavBar + IndexedStack"]
     B --> H["Home dashboard"]
     B --> S["Services tab"]
     B --> AL["Alerts tab"]
@@ -213,6 +253,8 @@ flowchart TD
     AD -- "related action" --> SV
     H -- "tap event" --> ED["Event details"]
     P -- "Digital ID" --> ID["ID card dialog"]
+    B -- "+ button" --> QA["Quick actions sheet"]
+    QA --> SV
     SV -. "pay / renew / join / ticket" .-> ST[("AppState<br/>ChangeNotifier")]
     ED -. "register" .-> ST
     AD -. "mark read" .-> ST
@@ -223,9 +265,10 @@ flowchart TD
 |---|---|
 | **Data** | `lib/data/sample_data.dart` holds all fictional data; `models.dart` defines plain Dart classes |
 | **State** | `AppState` (a `ChangeNotifier`) exposed through an `InheritedNotifier` (`AppStateScope`). Any widget that calls `AppStateScope.of(context)` rebuilds automatically when state changes |
-| **Navigation** | Bottom `NavigationBar` + `IndexedStack` (tabs keep their scroll position); service and detail pages use `Navigator.push` via `service_router.dart` |
+| **Navigation** | Custom `FloatingNavBar` + `IndexedStack` (tabs keep their scroll position); service and detail pages use `Navigator.push` via `service_router.dart` |
 | **UI components** | Reusable widgets in `lib/widgets/` — `CampusActionCard`, `EventCard`, `StatusBadge`, `IconTile`, `DateTile`, `CampusCard`, `SectionHeader` |
-| **Responsiveness** | `LayoutBuilder` switches the grid between 2 and 4 columns; content is constrained to a readable max width on tablets and desktop |
+| **Responsiveness** | `LayoutBuilder` breakpoints — dashboard: one column below 1000 px, two columns (max 1180 px) above; service grid: 2 columns below 560 px, 4 above; other pages max 820 px. Mouse and trackpad drags scroll lists on the web |
+| **Motion** | Reusable animation widgets in `lib/widgets/animations.dart`, all respecting *Reduce motion* |
 
 ## Design system
 
@@ -268,8 +311,11 @@ flutter run -d chrome       # run in the browser
 flutter test
 ```
 
-The widget tests check that every required dashboard section renders, that a
-service card opens its page, and that the bottom navigation switches tabs.
+The widget tests (run with *Reduce motion* on, so animations can't cause
+flakiness) check that every required dashboard section renders, that a service
+card opens its page, that the floating navigation switches tabs, that the
+**+** button opens Quick actions, and that desktop widths use the two-column
+layout without overflow.
 
 ### Build
 
@@ -302,10 +348,13 @@ lib/
 │   ├── campus_action_card.dart       # ★ Reusable CampusActionCard + responsive grid
 │   ├── common_widgets.dart           # IconTile, StatusBadge, DateTile, CampusCard…
 │   ├── announcement_card.dart        # Featured announcement + alert tile
-│   └── event_card.dart               # Event card with date tile
+│   ├── event_card.dart               # Event card with date tile
+│   ├── animations.dart               # Reveal, Floating, HoverLift, CountUp, Marquee…
+│   ├── floating_nav_bar.dart         # Frosted, detached nav bar with raised + button
+│   └── quick_actions_sheet.dart      # Animated quick actions bottom sheet
 └── screens/
-    ├── home_shell.dart               # Bottom navigation (Home, Services, Alerts, Profile)
-    ├── dashboard_screen.dart         # ★ Main dashboard
+    ├── home_shell.dart               # Tabs, floating nav, hide-on-scroll, quick actions
+    ├── dashboard_screen.dart         # ★ Main dashboard (phone + desktop layouts)
     ├── services_screen.dart          # Searchable services grid
     ├── alerts_screen.dart            # Filterable announcements
     ├── profile_screen.dart           # Profile, digital ID, settings
@@ -315,7 +364,7 @@ lib/
     ├── service_router.dart           # Opens the right page for each service
     └── services/                     # Timetable, Results, Attendance, Fees,
                                       # Library, Shuttle, Clubs, Helpdesk
-docs/                                 # README banner, demo GIF, screenshots
+docs/                                 # README banner, demo recording, screenshots
 test/widget_test.dart                 # Widget tests
 .github/workflows/deploy.yml          # GitHub Pages deployment
 ```
@@ -349,7 +398,7 @@ test/widget_test.dart                 # Widget tests
 | Margin | Section headers, next-class card, transport notice, event cards |
 | Padding | Every card (14–20 px) |
 | Alignment | Avatar initials, icon tiles, footer text (`Alignment.center`) |
-| Constraints | `BoxConstraints(minHeight: 128)` on action cards, `maxWidth: 760` responsive body, `minHeight: 48` touch targets |
+| Constraints | `BoxConstraints(minHeight: 128)` on action cards, `maxWidth: 1180 / 820` responsive bodies, `maxWidth: 480` floating nav bar, `minHeight: 48` touch targets |
 | BoxDecoration | Cards, header, badges, tiles — colour is always inside the decoration |
 | Border | Action cards, gold announcement border, date tiles, avatar ring |
 | Border radius | 16 px cards, 12 px tiles, 28 px header corners |
@@ -372,10 +421,10 @@ test/widget_test.dart                 # Widget tests
 | Announcement | Semester 6 registration closes Fri, 9 Oct 2026, 5:00 PM |
 | Student life | Career Discovery Fair, Chess Open, Flutter Build Night, Charity Run, shuttle notice |
 | Card style | 16 px radius, 1 px border, soft shadow, rounded icon tiles, 16 px spacing |
-| Layout choice | Responsive `Wrap` grid — 2 columns on phones, 4 on tablets |
-| Interaction | Every card navigates or gives SnackBar / dialog feedback |
-| Visual detail | Gradient header, crest watermark, status badges, progress bars, date tiles |
-| Accessibility | 48 px targets, `Semantics` labels, ≥ 12.5 px text, high contrast |
+| Layout choice | Responsive `Wrap` grid — 2 columns on phones, 4 on tablets / desktop; two-column dashboard on desktop |
+| Interaction | Every card navigates or gives SnackBar / dialog feedback; floating **+** opens Quick actions |
+| Visual detail | Gradient header, floating crest and cards, status badges, animated progress bars, date tiles, news marquee |
+| Accessibility | 48 px targets, `Semantics` labels, ≥ 12.5 px text, high contrast, animations respect *Reduce motion* |
 
 </details>
 
@@ -383,6 +432,7 @@ test/widget_test.dart                 # Widget tests
 
 - [ ] Real authentication and student data (e.g. Firebase or a university API)
 - [ ] Dark mode using the same navy and gold palette
+- [ ] Side navigation rail for very wide desktop windows
 - [ ] Persist settings, registrations and payments on the device
 - [ ] Push notifications for deadlines and shuttle arrivals
 - [ ] Localisation into additional languages

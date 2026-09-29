@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/app_theme.dart';
+import 'animations.dart';
 
 /// Shows a consistent floating SnackBar used for tap feedback everywhere.
 void showCampusSnackBar(
@@ -250,8 +251,7 @@ class CampusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final content = Container(padding: padding, child: child);
-    return Container(
-      margin: margin,
+    final card = Container(
       decoration: AppStyle.card(color: color),
       // Transparent Material lets ripples (InkWell / ListTile) paint on top
       // of the card's background colour.
@@ -267,6 +267,11 @@ class CampusCard extends StatelessWidget {
                 child: content,
               ),
       ),
+    );
+    return Padding(
+      padding: margin,
+      // Tappable cards lift slightly on mouse hover (desktop / web).
+      child: onTap == null ? card : HoverLift(child: card),
     );
   }
 }
@@ -350,11 +355,15 @@ class ResponsiveBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Extra bottom space so content can scroll clear of the floating nav bar.
+    final navSpace = MediaQuery.paddingOf(context).bottom;
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 760),
-        padding: padding ?? const EdgeInsets.fromLTRB(16, 16, 16, 32),
+        constraints: const BoxConstraints(maxWidth: 820),
+        padding: (padding ?? const EdgeInsets.fromLTRB(16, 16, 16, 32)).add(
+          EdgeInsets.only(bottom: navSpace),
+        ),
         child: child,
       ),
     );

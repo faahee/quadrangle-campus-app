@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'data/sample_data.dart';
@@ -34,8 +36,17 @@ class _QuadrangleAppState extends State<QuadrangleApp> {
         title: SampleData.appName,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
+        scrollBehavior: const _AppScrollBehavior(),
         home: const HomeShell(),
       ),
     );
   }
+}
+
+/// Lets mouse and trackpad drags scroll lists too (useful on web/desktop).
+class _AppScrollBehavior extends MaterialScrollBehavior {
+  const _AppScrollBehavior();
+
+  @override
+  Set<PointerDeviceKind> get dragDevices => PointerDeviceKind.values.toSet();
 }

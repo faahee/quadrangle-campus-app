@@ -102,7 +102,7 @@ class ProfileScreen extends StatelessWidget {
                               backgroundColor: AppColors.gold,
                               foregroundColor: AppColors.navy,
                             ),
-                            onPressed: () => _showDigitalId(context),
+                            onPressed: () => showDigitalIdDialog(context),
                             icon: const Icon(Icons.badge_rounded),
                             label: const Text('Digital ID'),
                           ),
@@ -367,32 +367,33 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  void _showDigitalId(BuildContext context) {
-    showDialog<void>(
-      context: context,
-      builder: (dialogContext) => Dialog(
-        backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const _DigitalIdCard(),
-            const SizedBox(height: 14),
-            FilledButton.icon(
-              style: FilledButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: AppColors.navy,
-              ),
-              onPressed: () => Navigator.pop(dialogContext),
-              icon: const Icon(Icons.close_rounded),
-              label: const Text('Close'),
+/// Shows the digital student ID card (also used by Quick actions).
+void showDigitalIdDialog(BuildContext context) {
+  showDialog<void>(
+    context: context,
+    builder: (dialogContext) => Dialog(
+      backgroundColor: Colors.transparent,
+      insetPadding: const EdgeInsets.all(20),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const _DigitalIdCard(),
+          const SizedBox(height: 14),
+          FilledButton.icon(
+            style: FilledButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: AppColors.navy,
             ),
-          ],
-        ),
+            onPressed: () => Navigator.pop(dialogContext),
+            icon: const Icon(Icons.close_rounded),
+            label: const Text('Close'),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
 }
 
 class _CounterTile extends StatelessWidget {
