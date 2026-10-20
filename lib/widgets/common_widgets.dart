@@ -374,7 +374,7 @@ class ResponsiveBody extends StatelessWidget {
   }
 }
 
-/// Student photo in a circle. Put a picture at `assets/images/profile.jpg`;
+/// Student photo in a circle. Put a picture at `assets/images/profile.png`;
 /// until then the student's initials are shown instead.
 class StudentAvatar extends StatelessWidget {
   const StudentAvatar({
@@ -384,7 +384,7 @@ class StudentAvatar extends StatelessWidget {
     this.square = false,
   });
 
-  static const String photo = 'assets/images/profile.jpg';
+  static const String photo = 'assets/images/profile.png';
 
   final String initials;
   final double size;

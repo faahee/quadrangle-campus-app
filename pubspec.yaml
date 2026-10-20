@@ -57,7 +57,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # Student photo: add assets/images/profile.jpg to show it in the app.
+  # Student photo: add assets/images/profile.png to show it in the app.
   assets:
     - assets/images/
 
