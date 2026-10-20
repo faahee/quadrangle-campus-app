@@ -76,7 +76,7 @@ class EventDetailScreen extends StatelessWidget {
                               Text(
                                 event.organiser,
                                 style: const TextStyle(
-                                  color: Color(0xFFE9ECF3),
+                                  color: Color(0xFFE3E7EC),
                                   fontSize: 13,
                                 ),
                               ),
@@ -162,7 +162,7 @@ class EventDetailScreen extends StatelessWidget {
                       child: Text(
                         registered
                             ? 'You are registered. Show your student ID at the entrance.'
-                            : 'Registration is free for Kingsbridge students.',
+                            : 'Registration is free for MIT students.',
                         style: const TextStyle(fontSize: 13.5),
                       ),
                     ),

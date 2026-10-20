@@ -71,7 +71,7 @@ class _AnnouncementDetailScreenState extends State<AnnouncementDetailScreen> {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFFFFF8E6), Color(0xFFFBEFD2)],
+                    colors: [Color(0xFFFFF4E6), Color(0xFFFFE3C4)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),

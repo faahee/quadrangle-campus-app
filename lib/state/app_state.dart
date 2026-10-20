@@ -16,12 +16,12 @@ class AppState extends ChangeNotifier {
 
   final List<Invoice> invoices = SampleData.invoices();
   final List<BorrowedBook> books = SampleData.books();
-  final List<HelpTicket> tickets = SampleData.tickets();
+  final List<StudentRequest> requests = SampleData.requests();
 
   bool pushNotifications = true;
   bool emailDigest = false;
 
-  int _ticketCounter = 10483;
+  int _requestCounter = 142;
 
   // ----- Profile -----
   void updatePreferredName(String name) {
@@ -110,33 +110,33 @@ class AppState extends ChangeNotifier {
     return true;
   }
 
-  // ----- Helpdesk -----
-  HelpTicket addTicket(String category, String subject) {
-    final now = DateTime.now();
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    final ticket = HelpTicket(
-      id: 'HD-${_ticketCounter++}',
-      category: category,
+  // ----- Requests -----
+  int get openRequests => requests.where((r) => r.isOpen).length;
+
+  StudentRequest addRequest({
+    required RequestType type,
+    required String subject,
+    required String details,
+    required DateTime preferredDate,
+    required String priority,
+    required String contactMethod,
+    String? phone,
+  }) {
+    final request = StudentRequest(
+      id: 'REQ-${DateTime.now().year}-${(_requestCounter++).toString().padLeft(4, '0')}',
+      type: type,
       subject: subject,
-      status: 'Submitted',
-      date: '${now.day} ${months[now.month - 1]} ${now.year}',
+      details: details,
+      preferredDate: preferredDate,
+      priority: priority,
+      contactMethod: contactMethod,
+      phone: phone,
+      submittedOn: DateTime.now(),
+      status: RequestStatus.submitted,
     );
-    tickets.insert(0, ticket);
+    requests.insert(0, request);
     notifyListeners();
-    return ticket;
+    return request;
   }
 }
 

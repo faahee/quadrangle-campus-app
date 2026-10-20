@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://faahee.github.io/quadrangle-campus-app/"><img src="https://img.shields.io/badge/Live%20demo-Open%20app-C9A227?style=for-the-badge&logo=githubpages&logoColor=white" alt="Live demo"></a>
+  <a href="https://faahee.github.io/quadrangle-campus-app/"><img src="https://img.shields.io/badge/Live%20demo-Open%20app-FFB162?style=for-the-badge&logo=githubpages&logoColor=white" alt="Live demo"></a>
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
   <img src="https://img.shields.io/badge/Flutter-3.47-02569B?logo=flutter&logoColor=white" alt="Flutter 3.47">
   <img src="https://img.shields.io/badge/Dart-3.13-0175C2?logo=dart&logoColor=white" alt="Dart 3.13">
   <img src="https://img.shields.io/badge/Material-3-757575?logo=materialdesign&logoColor=white" alt="Material 3">
-  <img src="https://img.shields.io/badge/Platforms-Android%20%7C%20iOS%20%7C%20Web-14213D" alt="Platforms">
+  <img src="https://img.shields.io/badge/Platforms-Android%20%7C%20iOS%20%7C%20Web-2C3B4D" alt="Platforms">
   <img src="https://img.shields.io/badge/Dependencies-none-2E6B45" alt="No third-party dependencies">
 </p>
 
@@ -33,6 +33,7 @@
 - [How it works](#how-it-works)
 - [Animations & motion](#animations--motion)
 - [Architecture](#architecture)
+- [Scaffold, Navigator & Form](#scaffold-navigator--form)
 - [Design system](#design-system)
 - [Getting started](#getting-started)
 - [Deployment](#deployment)
@@ -45,8 +46,8 @@
 
 ## Overview
 
-**Quadrangle** is the home dashboard of a Student Campus App for the fictional
-**Kingsbridge University**. It greets the student, summarises their academic
+**Quadrangle** is the home dashboard of a Student Campus App for **MIT**
+(a student coursework prototype with fictional sample data). It greets the student, summarises their academic
 standing, gives one-tap access to eight campus services, and surfaces
 time-sensitive announcements and student-life events.
 
@@ -55,9 +56,11 @@ section is composed from purposeful `Container`s — for sizing, spacing,
 alignment, constraints, and `BoxDecoration` (colour, border, radius, gradient,
 shadow). Beyond the dashboard, **every button works**: services open real pages,
 payments update balances, registrations change state, and alerts can be read
-and filtered.
+and filtered. Students can also submit requests through a fully customised
+`Form`, and every tab has its own `Navigator`.
 
-> All names, IDs, grades, and dates are fictional sample data. No database,
+> All names, IDs, grades, and dates are fictional sample data. This is not an
+> official MIT app. No database,
 > login, or network API is required.
 
 ## Features
@@ -68,7 +71,7 @@ and filtered.
 | 🖥️ | **Responsive layout** | One column on phones, a two-column dashboard on desktop (≥ 1000 px) with a floating *“Your day at a glance”* card and today's class timeline |
 | ✨ | **Scroll animations** | Parallax header, cards that float up over the header, scroll-reveal sections, staggered cards, count-up numbers, live news marquee, hover lift |
 | 🧭 | **Floating nav bar** | Detached frosted-glass pill with a raised **+** button; hides while scrolling down and returns when scrolling up |
-| ⚡ | **Quick actions** | The **+** button opens a sheet of one-tap shortcuts (pay fees, book a room, new ticket, timetable, events, digital ID) |
+| ⚡ | **Quick actions** | The **+** button opens a sheet of one-tap shortcuts (new request, pay fees, book a room, timetable, events, digital ID) |
 | 🎓 | **Academic snapshot** | CGPA, credits and attendance with progress bars, plus an advisor appointment strip |
 | ⏰ | **Up next** | Automatically finds the next class from the timetable |
 | 🧭 | **Quick access** | Eight reusable `CampusActionCard`s in a responsive grid (2 columns on phones, 4 on tablets) |
@@ -81,7 +84,9 @@ and filtered.
 | 📚 | **Library** | Loan renewals (max two, +14 days each) and study-room booking |
 | 🚌 | **Shuttle** | Live-style random arrival times, pull to refresh, route stops, arrival alerts |
 | 👥 | **Clubs** | Category filters, join / leave with live member counts |
-| 🛟 | **Helpdesk** | Contact options, validated ticket form, ticket history, and FAQs |
+| 📝 | **Request form** | Customised `Form` with request-type tiles, date picker, priority selector, contact choice, conditional phone field, consent checkbox, validation, reset and a discard guard |
+| 🛟 | **Requests & support** | *My requests* with status progress (Submitted → In review → Approved → Completed), filters, contact options and FAQs |
+| 🧭 | **Per-tab navigation** | Each tab has its own `Navigator` with named routes; pages open inside the tab so the nav bar stays visible |
 | 🪪 | **Profile** | Digital student ID card, editable preferred name, settings, sign-out flow |
 | ♿ | **Accessibility** | 48 px touch targets, semantic labels on cards, readable text sizes and contrast, *Reduce motion* support |
 
@@ -143,9 +148,9 @@ and filtered.
   </tr>
   <tr>
     <td align="center"><img src="docs/screenshots/14-clubs.png" width="200"><br><sub><b>Clubs & societies</b></sub></td>
-    <td align="center"><img src="docs/screenshots/15-helpdesk.png" width="200"><br><sub><b>Helpdesk</b></sub></td>
-    <td></td>
-    <td></td>
+    <td align="center"><img src="docs/screenshots/15-requests.png" width="200"><br><sub><b>Requests & support</b></sub></td>
+    <td align="center"><img src="docs/screenshots/21-request-form.png" width="200"><br><sub><b>New request form</b></sub></td>
+    <td align="center"><img src="docs/screenshots/22-request-form-errors.png" width="200"><br><sub><b>Form validation</b></sub></td>
   </tr>
 </table>
 
@@ -192,7 +197,7 @@ and filtered.
 
 | Where | Action |
 |---|---|
-| **+** (centre of the nav bar) | Opens *Quick actions* — pay fees, book a study room, new ticket, timetable, events, digital ID |
+| **+** (centre of the nav bar) | Opens *Quick actions* — new request, pay fees, book a study room, timetable, events, digital ID |
 | Bell icon (header / sticky bar) | Opens the Alerts tab — badge shows the unread count |
 | Sticky bar title | Smoothly scrolls the dashboard back to the top |
 | **LIVE** news ticker | Opens the Alerts tab |
@@ -200,7 +205,7 @@ and filtered.
 | CGPA / Credits / Attendance | Open Results / Attendance |
 | Advisor strip | Dialog → confirm appointment (SnackBar feedback) |
 | Up next card | Opens Timetable |
-| Quick access cards | Open Timetable, Results, Attendance, Fees, Library, Shuttle, Clubs, Helpdesk |
+| Quick access cards | Open Timetable, Results, Attendance, Fees, Library, Shuttle, Clubs, Requests |
 | Campus update card | Announcement details (marks it as read) |
 | Event cards | Event details → Register / Cancel, Add to calendar |
 | Transport notice | Opens Shuttle |
@@ -211,7 +216,9 @@ and filtered.
 | Library | *Renew* (+14 days, max two); *Book a study room* (room + time) |
 | Shuttle | Refresh random live times; *Notify me* per route; tap to show stops |
 | Clubs | Filter by category; *Join* / *Leave* |
-| Helpdesk | Call, Email, Live chat; *New ticket* form with validation; FAQs |
+| Requests | *New request* (card or button) opens the form; filter *All / Open / Completed*; tap a request for its details and status; Call, Email, Live chat; FAQs |
+| Request form | *Reset* clears every field; *Submit request* validates, then shows a confirmation with a reference number; leaving with unsaved changes asks to discard |
+| Active tab (tap again) | Returns to the first page of that tab |
 | Alerts | Filter chips, *Mark all read*, open details, copy to clipboard |
 | Profile | Digital ID, Edit name, copy email / phone, settings switches, About, Sign out |
 
@@ -255,7 +262,7 @@ flowchart TD
     P -- "Digital ID" --> ID["ID card dialog"]
     B -- "+ button" --> QA["Quick actions sheet"]
     QA --> SV
-    SV -. "pay / renew / join / ticket" .-> ST[("AppState<br/>ChangeNotifier")]
+    SV -. "pay / renew / join / request" .-> ST[("AppState<br/>ChangeNotifier")]
     ED -. "register" .-> ST
     AD -. "mark read" .-> ST
     ST -. "notifyListeners()" .-> H
@@ -265,25 +272,98 @@ flowchart TD
 |---|---|
 | **Data** | `lib/data/sample_data.dart` holds all fictional data; `models.dart` defines plain Dart classes |
 | **State** | `AppState` (a `ChangeNotifier`) exposed through an `InheritedNotifier` (`AppStateScope`). Any widget that calls `AppStateScope.of(context)` rebuilds automatically when state changes |
-| **Navigation** | Custom `FloatingNavBar` + `IndexedStack` (tabs keep their scroll position); service and detail pages use `Navigator.push` via `service_router.dart` |
+| **Navigation** | `FloatingNavBar` + `IndexedStack` of four `TabNavigator`s (one `Navigator` per tab). Pages are opened by name through `AppRoutes.onGenerateRoute` |
 | **UI components** | Reusable widgets in `lib/widgets/` — `CampusActionCard`, `EventCard`, `StatusBadge`, `IconTile`, `DateTile`, `CampusCard`, `SectionHeader` |
 | **Responsiveness** | `LayoutBuilder` breakpoints — dashboard: one column below 1000 px, two columns (max 1180 px) above; service grid: 2 columns below 560 px, 4 above; other pages max 820 px. Mouse and trackpad drags scroll lists on the web |
 | **Motion** | Reusable animation widgets in `lib/widgets/animations.dart`, all respecting *Reduce motion* |
 
+## Scaffold, Navigator & Form
+
+### Scaffold
+
+Every screen is a `Scaffold`. The app's main one lives in
+[`home_shell.dart`](lib/screens/home_shell.dart):
+
+```dart
+Scaffold(
+  extendBody: true,                       // content scrolls behind the floating bar
+  body: IndexedStack(children: [ /* 4 × TabNavigator */ ]),
+  bottomNavigationBar: FloatingNavBar(...),
+)
+```
+
+Pages such as *Requests & support* add an `appBar`, a `body` and a
+`floatingActionButton`; SnackBars and bottom sheets are shown through the
+nearest Scaffold.
+
+### Navigator
+
+[`TabNavigator`](lib/navigation/tab_navigator.dart) wraps a `Navigator` widget
+so each tab keeps its own page stack, and
+[`AppRoutes`](lib/navigation/app_routes.dart) builds every page from a route
+name:
+
+```dart
+Navigator(
+  key: navigatorKey,
+  onGenerateRoute: (settings) => AppRoutes.onGenerateRoute(settings, home: root),
+)
+
+// anywhere in a tab
+Navigator.of(context).pushNamed(AppRoutes.service, arguments: 'fees');
+```
+
+| Route | Opens |
+|---|---|
+| `/` | The tab's first page (Dashboard, Services, Alerts or Profile) |
+| `/service` | A service page (argument: `timetable`, `results`, `fees`, `requests`…) |
+| `/announcement`, `/event` | Details pages (argument: the item) |
+| `/events` | All student-life events |
+| `/requests/new` | The request form (returns the new request when submitted) |
+
+The Android back button goes back inside the current tab first, then to Home.
+Tapping the active tab again returns to its first page.
+
+### Form
+
+[`RequestFormScreen`](lib/screens/request_form_screen.dart) uses a `Form` with a
+`GlobalKey<FormState>` and custom fields from
+[`form_fields.dart`](lib/widgets/form_fields.dart). Each one extends `FormField`,
+so `validate()`, `save()` and `reset()` work across all of them:
+
+| Widget | Purpose |
+|---|---|
+| `FormSection` | Numbered card that groups fields into 4 steps |
+| `CampusTextField` | Styled `TextFormField` (read-only, multiline, counter, icons) |
+| `TileSelectFormField<T>` | Grid of selectable tiles – request type |
+| `DateFormField` | Opens a date picker – *Needed by* (next 90 days) |
+| `PriorityFormField` | `SegmentedButton` – Low / Normal / Urgent |
+| `ChipChoiceFormField<T>` | Chips – preferred contact; *Phone* reveals a phone field |
+| `ConsentFormField` | Required confirmation checkbox |
+
+Validation runs on submit, then live as the student edits (`AutovalidateMode`).
+Email and phone formats, minimum lengths, a chosen type, a date and consent are
+all required. A `PopScope` asks before discarding unsaved changes.
+
 ## Design system
 
-A classic academic palette with serif headings (Georgia on iOS, Noto Serif on
-Android) and a single, consistent card style.
+The colours come from the **MP072 palette**, with serif headings (Georgia on
+iOS, Noto Serif on Android) and one consistent card style.
 
 | Role | Colour | Hex |
 |---|---|---|
-| Primary — Oxford navy | ![#14213D](https://img.shields.io/badge/-%20%20%20%20%20%20-14213D?style=flat-square) | `#14213D` |
-| Accent — Heritage gold | ![#C9A227](https://img.shields.io/badge/-%20%20%20%20%20%20-C9A227?style=flat-square) | `#C9A227` |
-| Background tint — Ivory | ![#FBF8F1](https://img.shields.io/badge/-%20%20%20%20%20%20-FBF8F1?style=flat-square) | `#FBF8F1` |
-| Background tint — Parchment | ![#F3ECDC](https://img.shields.io/badge/-%20%20%20%20%20%20-F3ECDC?style=flat-square) | `#F3ECDC` |
-| Info tint — Mist | ![#E9EEF6](https://img.shields.io/badge/-%20%20%20%20%20%20-E9EEF6?style=flat-square) | `#E9EEF6` |
+| Primary — Blue Fantastic | ![#2C3B4D](https://img.shields.io/badge/-%20%20%20%20%20%20-2C3B4D?style=flat-square) | `#2C3B4D` |
+| Deep primary / ink — Abyssal Anchorfish Blue | ![#1B2632](https://img.shields.io/badge/-%20%20%20%20%20%20-1B2632?style=flat-square) | `#1B2632` |
+| Accent — Burning Flame | ![#FFB162](https://img.shields.io/badge/-%20%20%20%20%20%20-FFB162?style=flat-square) | `#FFB162` |
+| Secondary accent — Truffle Trouble | ![#A35139](https://img.shields.io/badge/-%20%20%20%20%20%20-A35139?style=flat-square) | `#A35139` |
+| Background — Palladian | ![#EEE9DF](https://img.shields.io/badge/-%20%20%20%20%20%20-EEE9DF?style=flat-square) | `#EEE9DF` |
+| Borders & muted text — Oatmeal | ![#C9C1B1](https://img.shields.io/badge/-%20%20%20%20%20%20-C9C1B1?style=flat-square) | `#C9C1B1` |
 
-**Card style:** 16 px radius · 1 px parchment border · soft navy shadow
+Text on Burning Flame always uses Abyssal Anchorfish Blue for contrast. The
+dashboard header recreates the palette's poster style: a deep blue gradient
+with a warm flame glow.
+
+**Card style:** 16 px radius · 1 px oatmeal border · soft blue shadow
 (blur 14, y-offset 5, 7 % opacity) · 14–20 px padding · 12–16 px spacing.
 Each campus service has its own deep colour and matching light tint.
 
@@ -311,11 +391,12 @@ flutter run -d chrome       # run in the browser
 flutter test
 ```
 
-The widget tests (run with *Reduce motion* on, so animations can't cause
+The 7 widget tests (run with *Reduce motion* on, so animations can't cause
 flakiness) check that every required dashboard section renders, that a service
 card opens its page, that the floating navigation switches tabs, that the
-**+** button opens Quick actions, and that desktop widths use the two-column
-layout without overflow.
+**+** button opens Quick actions, that desktop widths use the two-column layout
+without overflow, that pages open inside a tab's own `Navigator`, and that the
+request form shows its validation errors and then submits successfully.
 
 ### Build
 
@@ -339,6 +420,9 @@ The live demo is hosted on **GitHub Pages** and deployed automatically by
 ```
 lib/
 ├── main.dart                         # MaterialApp + shared state
+├── navigation/
+│   ├── app_routes.dart               # Named routes + onGenerateRoute
+│   └── tab_navigator.dart            # Navigator widget for one tab
 ├── theme/app_theme.dart              # Colour system, card style, Material theme
 ├── data/
 │   ├── models.dart                   # Data classes
@@ -350,10 +434,11 @@ lib/
 │   ├── announcement_card.dart        # Featured announcement + alert tile
 │   ├── event_card.dart               # Event card with date tile
 │   ├── animations.dart               # Reveal, Floating, HoverLift, CountUp, Marquee…
+│   ├── form_fields.dart              # Custom FormFields for the request form
 │   ├── floating_nav_bar.dart         # Frosted, detached nav bar with raised + button
 │   └── quick_actions_sheet.dart      # Animated quick actions bottom sheet
 └── screens/
-    ├── home_shell.dart               # Tabs, floating nav, hide-on-scroll, quick actions
+    ├── home_shell.dart               # Main Scaffold: tab navigators, floating nav, quick actions
     ├── dashboard_screen.dart         # ★ Main dashboard (phone + desktop layouts)
     ├── services_screen.dart          # Searchable services grid
     ├── alerts_screen.dart            # Filterable announcements
@@ -361,9 +446,10 @@ lib/
     ├── announcement_detail_screen.dart
     ├── event_detail_screen.dart
     ├── events_screen.dart
-    ├── service_router.dart           # Opens the right page for each service
+    ├── request_form_screen.dart      # ★ Customised Form – new student request
+    ├── service_router.dart           # openService / openEvent… helpers (pushNamed)
     └── services/                     # Timetable, Results, Attendance, Fees,
-                                      # Library, Shuttle, Clubs, Helpdesk
+                                      # Library, Shuttle, Clubs, Requests
 docs/                                 # README banner, demo recording, screenshots
 test/widget_test.dart                 # Widget tests
 .github/workflows/deploy.yml          # GitHub Pages deployment
@@ -400,10 +486,10 @@ test/widget_test.dart                 # Widget tests
 | Alignment | Avatar initials, icon tiles, footer text (`Alignment.center`) |
 | Constraints | `BoxConstraints(minHeight: 128)` on action cards, `maxWidth: 1180 / 820` responsive bodies, `maxWidth: 480` floating nav bar, `minHeight: 48` touch targets |
 | BoxDecoration | Cards, header, badges, tiles — colour is always inside the decoration |
-| Border | Action cards, gold announcement border, date tiles, avatar ring |
+| Border | Action cards, flame announcement border, date tiles, avatar ring, form fields |
 | Border radius | 16 px cards, 12 px tiles, 28 px header corners |
 | Box shadow | `AppStyle.softShadow` on cards; stronger shadow under the header |
-| Colour treatment | Navy primary, gold accent, ivory and parchment tints |
+| Colour treatment | MP072 palette – Blue Fantastic primary, Burning Flame accent, Truffle Trouble secondary, Palladian and Oatmeal tints |
 | Child composition | `Row`, `Column`, `Wrap`, and `Stack` inside Containers |
 
 </details>
@@ -413,11 +499,11 @@ test/widget_test.dart                 # Widget tests
 
 | Category | Choice |
 |---|---|
-| App identity | *Quadrangle* · Kingsbridge University · Student Dashboard |
-| Colour system | Navy `#14213D`, gold `#C9A227`, ivory `#FBF8F1`, parchment `#F3ECDC` |
-| Profile | Aarav Menon · `KBU-23-04817` · BSc (Hons) Computer Science |
+| App identity | *Quadrangle* · MIT · Student Dashboard |
+| Colour system | Primary `#2C3B4D`, accent `#FFB162`, secondary `#A35139`, tints `#EEE9DF` and `#C9C1B1` |
+| Profile | Aarav Menon · `MIT-23-04817` · BSc (Hons) Computer Science |
 | Academic indicators | CGPA, credits, attendance, advisor |
-| Campus services | Timetable, Results, Attendance, Fees, Library, Shuttle, Clubs, Helpdesk |
+| Campus services | Timetable, Results, Attendance, Fees, Library, Shuttle, Clubs, Requests |
 | Announcement | Semester 6 registration closes Fri, 9 Oct 2026, 5:00 PM |
 | Student life | Career Discovery Fair, Chess Open, Flutter Build Night, Charity Run, shuttle notice |
 | Card style | 16 px radius, 1 px border, soft shadow, rounded icon tiles, 16 px spacing |
@@ -431,7 +517,7 @@ test/widget_test.dart                 # Widget tests
 ## Roadmap
 
 - [ ] Real authentication and student data (e.g. Firebase or a university API)
-- [ ] Dark mode using the same navy and gold palette
+- [ ] Dark mode using the Abyssal Anchorfish Blue and Burning Flame tones
 - [ ] Side navigation rail for very wide desktop windows
 - [ ] Persist settings, registrations and payments on the device
 - [ ] Push notifications for deadlines and shuttle arrivals
@@ -440,5 +526,6 @@ test/widget_test.dart                 # Widget tests
 ## Credits
 
 Built by **[@faahee](https://github.com/faahee)** as a Flutter coursework project.
-Icons from [Material Icons](https://fonts.google.com/icons). Kingsbridge
-University and all people, IDs and records in the app are fictional.
+Icons from [Material Icons](https://fonts.google.com/icons). Colour palette:
+MP072. All people, IDs and records in the app are fictional, and this is a
+student prototype, not an official MIT app.

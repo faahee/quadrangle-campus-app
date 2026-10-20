@@ -1,41 +1,23 @@
 import 'package:flutter/material.dart';
 
 import '../data/models.dart';
-import 'announcement_detail_screen.dart';
-import 'event_detail_screen.dart';
-import 'services/attendance_screen.dart';
-import 'services/clubs_screen.dart';
-import 'services/fees_screen.dart';
-import 'services/helpdesk_screen.dart';
-import 'services/library_screen.dart';
-import 'services/results_screen.dart';
-import 'services/shuttle_screen.dart';
-import 'services/timetable_screen.dart';
+import '../navigation/app_routes.dart';
 
-/// Central place that opens the right page for each campus service.
-void openService(BuildContext context, String serviceId) {
-  final Widget page = switch (serviceId) {
-    'timetable' => const TimetableScreen(),
-    'results' => const ResultsScreen(),
-    'attendance' => const AttendanceScreen(),
-    'fees' => const FeesScreen(),
-    'library' => const LibraryScreen(),
-    'shuttle' => const ShuttleScreen(),
-    'clubs' => const ClubsScreen(),
-    _ => const HelpdeskScreen(),
-  };
-  Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
-}
+/// Small helpers so screens can open pages without knowing route names.
+/// Each one pushes onto the nearest [Navigator] – normally the current tab's.
 
-void openAnnouncement(BuildContext context, Announcement announcement) {
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (_) => AnnouncementDetailScreen(announcement: announcement),
-    ),
-  );
-}
+void openService(BuildContext context, String serviceId) =>
+    Navigator.of(context).pushNamed(AppRoutes.service, arguments: serviceId);
 
-void openEvent(BuildContext context, CampusEvent event) {
-  Navigator.of(context)
-      .push(MaterialPageRoute(builder: (_) => EventDetailScreen(event: event)));
-}
+void openAnnouncement(BuildContext context, Announcement announcement) =>
+    Navigator.of(context)
+        .pushNamed(AppRoutes.announcement, arguments: announcement);
+
+void openEvent(BuildContext context, CampusEvent event) =>
+    Navigator.of(context).pushNamed(AppRoutes.event, arguments: event);
+
+void openEvents(BuildContext context) =>
+    Navigator.of(context).pushNamed(AppRoutes.events);
+
+void openRequestForm(BuildContext context) =>
+    Navigator.of(context).pushNamed(AppRoutes.newRequest);

@@ -72,6 +72,7 @@ class StatusBadge extends StatelessWidget {
         l.contains('delayed') ||
         l.contains('unpaid') ||
         l.contains('overdue') ||
+        l.contains('urgent') ||
         l.contains('below')) {
       return (AppColors.danger, AppColors.dangerTint);
     }
@@ -79,6 +80,7 @@ class StatusBadge extends StatelessWidget {
         l.contains('notice') ||
         l.contains('diverted') ||
         l.contains('progress') ||
+        l.contains('review') ||
         l.contains('few') ||
         l.contains('pinned')) {
       return (AppColors.warning, AppColors.warningTint);
@@ -90,6 +92,8 @@ class StatusBadge extends StatelessWidget {
         l.contains('resolved') ||
         l.contains('paid') ||
         l.contains('joined') ||
+        l.contains('completed') ||
+        l.contains('approved') ||
         l.contains('good') ||
         l.contains('seats')) {
       return (AppColors.success, AppColors.successTint);

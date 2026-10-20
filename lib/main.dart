@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'data/sample_data.dart';
+import 'navigation/app_routes.dart';
 import 'screens/home_shell.dart';
 import 'state/app_state.dart';
 import 'theme/app_theme.dart';
@@ -38,6 +39,7 @@ class _QuadrangleAppState extends State<QuadrangleApp> {
         theme: AppTheme.light,
         scrollBehavior: const _AppScrollBehavior(),
         home: const HomeShell(),
+        onGenerateRoute: AppRoutes.onGenerateRoute,
       ),
     );
   }

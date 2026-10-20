@@ -1,41 +1,53 @@
 import 'package:flutter/material.dart';
 
-/// Colour system for Quadrangle.
-/// A classic university palette: Oxford navy (primary), heritage gold
-/// (accent), and two warm background tints (ivory and parchment).
+/// Colour system for Quadrangle, built from the MP072 palette:
+///
+///  * Blue Fantastic `#2C3B4D` – primary
+///  * Abyssal Anchorfish Blue `#1B2632` – deep primary / ink
+///  * Burning Flame `#FFB162` – accent
+///  * Truffle Trouble `#A35139` – secondary accent
+///  * Palladian `#EEE9DF` and Oatmeal `#C9C1B1` – background tints
 class AppColors {
   AppColors._();
 
-  // Primary + accent
-  static const Color navy = Color(0xFF14213D);
-  static const Color navyLight = Color(0xFF24365E);
-  static const Color gold = Color(0xFFC9A227);
-  static const Color goldDeep = Color(0xFF8A6A0E);
+  // Palette
+  static const Color blueFantastic = Color(0xFF2C3B4D);
+  static const Color abyss = Color(0xFF1B2632);
+  static const Color flame = Color(0xFFFFB162);
+  static const Color truffle = Color(0xFFA35139);
+  static const Color palladian = Color(0xFFEEE9DF);
+  static const Color oatmeal = Color(0xFFC9C1B1);
+
+  // Roles (names kept short so widgets read clearly)
+  static const Color navy = blueFantastic;
+  static const Color navyLight = Color(0xFF3B4D63);
+  static const Color gold = flame;
+  static const Color goldDeep = truffle; // accent text on light backgrounds
 
   // Supporting background tints
-  static const Color ivory = Color(0xFFFBF8F1);
-  static const Color parchment = Color(0xFFF3ECDC);
-  static const Color mist = Color(0xFFE9EEF6);
+  static const Color ivory = palladian;
+  static const Color parchment = Color(0xFFE5DED1);
+  static const Color mist = Color(0xFFE2E6EA);
 
   // Neutrals
-  static const Color surface = Colors.white;
-  static const Color ink = Color(0xFF1C2433);
-  static const Color muted = Color(0xFF5B6475);
-  static const Color line = Color(0xFFE4DCCB);
+  static const Color surface = Color(0xFFFBF9F5);
+  static const Color ink = abyss;
+  static const Color muted = Color(0xFF5E6670);
+  static const Color line = Color(0xFFD9D2C4);
 
-  // Status colours
-  static const Color success = Color(0xFF2E6B45);
-  static const Color successTint = Color(0xFFE3F1E7);
-  static const Color warning = Color(0xFF9A5B0B);
-  static const Color warningTint = Color(0xFFFDF1DC);
-  static const Color danger = Color(0xFF8E2231);
-  static const Color dangerTint = Color(0xFFF8E3E5);
-  static const Color info = Color(0xFF24507F);
-  static const Color infoTint = Color(0xFFE3ECF7);
+  // Status colours (harmonised with the palette)
+  static const Color success = Color(0xFF4F7A5C);
+  static const Color successTint = Color(0xFFE3ECE5);
+  static const Color warning = Color(0xFF9E5A17);
+  static const Color warningTint = Color(0xFFFFEBD3);
+  static const Color danger = truffle;
+  static const Color dangerTint = Color(0xFFF4E2DB);
+  static const Color info = blueFantastic;
+  static const Color infoTint = Color(0xFFE2E6EB);
 }
 
 /// Shared card style so every card in the app looks consistent:
-/// radius 16, 1px parchment border, soft navy shadow, 16px spacing.
+/// radius 16, 1px oatmeal border, soft blue shadow, 16px spacing.
 class AppStyle {
   AppStyle._();
 

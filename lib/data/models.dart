@@ -242,18 +242,51 @@ class Club {
   });
 }
 
-class HelpTicket {
+/// A type of request a student can submit through the request form.
+class RequestType {
   final String id;
-  final String category;
-  final String subject;
-  final String status;
-  final String date;
+  final String label;
+  final IconData icon;
 
-  const HelpTicket({
+  const RequestType(this.id, this.label, this.icon);
+}
+
+enum RequestStatus { submitted, inReview, approved, completed }
+
+extension RequestStatusLabel on RequestStatus {
+  String get label => switch (this) {
+    RequestStatus.submitted => 'Submitted',
+    RequestStatus.inReview => 'In review',
+    RequestStatus.approved => 'Approved',
+    RequestStatus.completed => 'Completed',
+  };
+}
+
+/// A request submitted through the "New request" form.
+class StudentRequest {
+  final String id;
+  final RequestType type;
+  final String subject;
+  final String details;
+  final DateTime preferredDate;
+  final String priority;
+  final String contactMethod;
+  final String? phone;
+  final DateTime submittedOn;
+  final RequestStatus status;
+
+  const StudentRequest({
     required this.id,
-    required this.category,
+    required this.type,
     required this.subject,
+    required this.details,
+    required this.preferredDate,
+    required this.priority,
+    required this.contactMethod,
+    required this.submittedOn,
     required this.status,
-    required this.date,
+    this.phone,
   });
+
+  bool get isOpen => status != RequestStatus.completed;
 }

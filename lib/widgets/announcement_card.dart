@@ -28,7 +28,7 @@ class FeaturedAnnouncementCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: [Color(0xFFFFF8E6), Color(0xFFFBEFD2)],
+              colors: [Color(0xFFFFF4E6), Color(0xFFFFE3C4)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -100,7 +100,7 @@ class FeaturedAnnouncementCard extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
-                              color: Color(0xFF4A3A08),
+                              color: Color(0xFF5A2E1C),
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -109,7 +109,7 @@ class FeaturedAnnouncementCard extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 13.5,
                               height: 1.35,
-                              color: Color(0xFF5E4B12),
+                              color: Color(0xFF6B3A22),
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -160,7 +160,7 @@ class AnnouncementTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return CampusCard(
       onTap: onTap,
-      color: isRead ? AppColors.surface : const Color(0xFFFFFCF4),
+      color: isRead ? AppColors.surface : const Color(0xFFFFF8EE),
       padding: const EdgeInsets.all(14),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

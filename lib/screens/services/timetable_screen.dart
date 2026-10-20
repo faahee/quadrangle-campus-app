@@ -17,13 +17,36 @@ class _TimetableScreenState extends State<TimetableScreen> {
   late String _day;
   final Set<String> _reminders = {};
 
-  static const _dates = {
-    'Mon': '28',
-    'Tue': '29',
-    'Wed': '30',
-    'Thu': '1',
-    'Fri': '2',
-  };
+  static const _months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  /// Monday of the current teaching week (next week's on weekends).
+  late final DateTime _monday = () {
+    final today = DateUtils.dateOnly(DateTime.now());
+    final offset = today.weekday <= 5 ? 1 - today.weekday : 8 - today.weekday;
+    return today.add(Duration(days: offset));
+  }();
+
+  DateTime _dateOf(String day) =>
+      _monday.add(Duration(days: SampleData.weekdays.indexOf(day)));
+
+  String get _weekLabel {
+    final friday = _monday.add(const Duration(days: 4));
+    return 'This week · ${_monday.day} ${_months[_monday.month - 1]} – '
+        '${friday.day} ${_months[friday.month - 1]} ${friday.year}';
+  }
 
   @override
   void initState() {
@@ -33,9 +56,9 @@ class _TimetableScreenState extends State<TimetableScreen> {
   }
 
   Color _typeColor(String type) => switch (type) {
-    'Lab' => const Color(0xFF1F6F6B),
-    'Tutorial' => const Color(0xFF5B3A73),
-    'Studio' => const Color(0xFF8A5A1E),
+    'Lab' => const Color(0xFFC9742E),
+    'Tutorial' => const Color(0xFF1B2632),
+    'Studio' => const Color(0xFF8A7F6B),
     _ => AppColors.info,
   };
 
@@ -43,6 +66,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
     final key = '$_day-${c.code}-${c.start}';
     showModalBottomSheet<void>(
       context: context,
+      useRootNavigator: true,
       showDragHandle: true,
       backgroundColor: Colors.white,
       builder: (sheetContext) => Padding(
@@ -113,9 +137,9 @@ class _TimetableScreenState extends State<TimetableScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                'Week 5 · 28 Sep – 2 Oct 2026',
-                style: TextStyle(color: AppColors.muted, fontSize: 13),
+              Text(
+                _weekLabel,
+                style: const TextStyle(color: AppColors.muted, fontSize: 13),
               ),
               const SizedBox(height: 10),
               // Day selector – selected day animates to navy.
@@ -148,12 +172,12 @@ class _TimetableScreenState extends State<TimetableScreen> {
                                   fontSize: 12.5,
                                   fontWeight: FontWeight.w600,
                                   color: d == _day
-                                      ? const Color(0xFFCBD3E4)
+                                      ? const Color(0xFFC9C1B1)
                                       : AppColors.muted,
                                 ),
                               ),
                               Text(
-                                _dates[d]!,
+                                '${_dateOf(d).day}',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w800,

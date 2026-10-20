@@ -127,8 +127,8 @@ class FeesScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: unpaid.isEmpty
-                        ? const [Color(0xFF2E6B45), Color(0xFF3F8A5B)]
-                        : const [Color(0xFF8E2231), Color(0xFFA83A48)],
+                        ? const [Color(0xFF4F7A5C), Color(0xFF7A9A80)]
+                        : const [Color(0xFFA35139), Color(0xFFC26A4F)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),

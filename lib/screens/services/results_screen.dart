@@ -57,7 +57,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 padding: const EdgeInsets.all(18),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFF1F6F6B), Color(0xFF2C8C86)],
+                    colors: [Color(0xFFC9742E), Color(0xFFE08A43)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -198,7 +198,7 @@ class _SummaryItem extends StatelessWidget {
           Text(
             label,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 12, color: Color(0xFFD9EFEC)),
+            style: const TextStyle(fontSize: 12, color: Color(0xFFFFE9D2)),
           ),
         ],
       ),

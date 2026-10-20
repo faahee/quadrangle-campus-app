@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 import '../state/app_state.dart';
+import '../navigation/app_routes.dart';
+import '../navigation/tab_navigator.dart';
 import '../theme/app_theme.dart';
 import '../widgets/floating_nav_bar.dart';
 import '../widgets/quick_actions_sheet.dart';
 import 'alerts_screen.dart';
 import 'dashboard_screen.dart';
-import 'events_screen.dart';
 import 'profile_screen.dart';
-import 'service_router.dart';
 import 'services_screen.dart';
 
-/// Holds the four main tabs and the floating bottom navigation bar.
+/// The app's main [Scaffold]: four tabs (each with its own [Navigator])
+/// and the floating bottom navigation bar.
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key});
 
@@ -62,51 +64,76 @@ class _HomeShellState extends State<HomeShell> {
     return false;
   }
 
+  /// One navigator per tab, so each tab keeps its own page history.
+  final _navigatorKeys = List.generate(4, (_) => GlobalKey<NavigatorState>());
+
+  NavigatorState get _currentNavigator => _navigatorKeys[_index].currentState!;
+
+  void _selectTab(int index) {
+    if (index == _index) {
+      // Tapping the active tab again returns to its first page.
+      _currentNavigator.popUntil((route) => route.isFirst);
+    }
+    _goTo(index);
+  }
+
+  /// Android back button: go back inside the current tab first, then to Home.
+  void _handleBack() {
+    if (_currentNavigator.canPop()) {
+      _currentNavigator.maybePop();
+    } else if (_index != Tabs.home) {
+      _goTo(Tabs.home);
+    } else {
+      SystemNavigator.pop();
+    }
+  }
+
   Future<void> _openQuickActions() async {
     setState(() => _actionsOpen = true);
+    void push(String route, [Object? arguments]) =>
+        _currentNavigator.pushNamed(route, arguments: arguments);
+
     await showQuickActionsSheet(context, [
+      QuickAction(
+        'New request',
+        Icons.edit_note_rounded,
+        AppColors.abyss,
+        AppColors.flame.withValues(alpha: 0.35),
+        () => push(AppRoutes.newRequest),
+      ),
       QuickAction(
         'Pay fees',
         Icons.account_balance_wallet_rounded,
-        AppColors.danger,
+        AppColors.truffle,
         AppColors.dangerTint,
-        () => openService(context, 'fees'),
+        () => push(AppRoutes.service, 'fees'),
       ),
       QuickAction(
         'Book a study room',
         Icons.meeting_room_rounded,
-        const Color(0xFF5B3A73),
-        const Color(0xFFEFE7F4),
-        () => openService(context, 'library'),
-      ),
-      QuickAction(
-        'New helpdesk ticket',
-        Icons.support_agent_rounded,
-        const Color(0xFF37516B),
-        const Color(0xFFE5ECF2),
-        () => openService(context, 'helpdesk'),
+        AppColors.abyss,
+        AppColors.mist,
+        () => push(AppRoutes.service, 'library'),
       ),
       QuickAction(
         'Today\'s timetable',
         Icons.calendar_month_rounded,
-        AppColors.info,
+        AppColors.navy,
         AppColors.infoTint,
-        () => openService(context, 'timetable'),
+        () => push(AppRoutes.service, 'timetable'),
       ),
       QuickAction(
         'Browse events',
         Icons.celebration_rounded,
-        AppColors.goldDeep,
-        AppColors.parchment,
-        () =>
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => const EventsScreen())),
+        AppColors.warning,
+        AppColors.warningTint,
+        () => push(AppRoutes.events),
       ),
       QuickAction(
         'Digital ID',
         Icons.badge_rounded,
         AppColors.navy,
-        AppColors.mist,
+        AppColors.parchment,
         () => showDigitalIdDialog(context),
       ),
     ]);
@@ -116,29 +143,39 @@ class _HomeShellState extends State<HomeShell> {
   @override
   Widget build(BuildContext context) {
     final unread = AppStateScope.of(context).unreadCount;
+    final roots = [
+      DashboardScreen(onOpenTab: _goTo),
+      const ServicesScreen(),
+      const AlertsScreen(),
+      ProfileScreen(onOpenTab: _goTo),
+    ];
 
-    return Scaffold(
-      extendBody: true,
-      body: NotificationListener<UserScrollNotification>(
-        onNotification: _onScroll,
-        child: IndexedStack(
-          index: _index,
-          children: [
-            DashboardScreen(onOpenTab: _goTo),
-            const ServicesScreen(),
-            const AlertsScreen(),
-            ProfileScreen(onOpenTab: _goTo),
-          ],
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _handleBack();
+      },
+      child: Scaffold(
+        extendBody: true,
+        body: NotificationListener<UserScrollNotification>(
+          onNotification: _onScroll,
+          child: IndexedStack(
+            index: _index,
+            children: [
+              for (var i = 0; i < roots.length; i++)
+                TabNavigator(navigatorKey: _navigatorKeys[i], root: roots[i]),
+            ],
+          ),
         ),
-      ),
-      bottomNavigationBar: FloatingNavBar(
-        destinations: _destinations,
-        selectedIndex: _index,
-        onSelected: _goTo,
-        onCenterTap: _openQuickActions,
-        centerOpen: _actionsOpen,
-        visible: _navVisible,
-        badges: {Tabs.alerts: unread},
+        bottomNavigationBar: FloatingNavBar(
+          destinations: _destinations,
+          selectedIndex: _index,
+          onSelected: _selectTab,
+          onCenterTap: _openQuickActions,
+          centerOpen: _actionsOpen,
+          visible: _navVisible,
+          badges: {Tabs.alerts: unread},
+        ),
       ),
     );
   }

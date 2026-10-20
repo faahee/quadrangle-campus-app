@@ -12,7 +12,6 @@ import '../widgets/announcement_card.dart';
 import '../widgets/campus_action_card.dart';
 import '../widgets/common_widgets.dart';
 import '../widgets/event_card.dart';
-import 'events_screen.dart';
 import 'home_shell.dart';
 import 'service_router.dart';
 import 'services/fees_screen.dart' show money;
@@ -188,7 +187,7 @@ class _NarrowBody extends StatelessWidget {
           child: SectionHeader(
             title: 'Student life',
             actionLabel: 'All events',
-            onAction: () => _openEvents(context),
+            onAction: () => openEvents(context),
           ),
         ),
         SizedBox(
@@ -268,7 +267,7 @@ class _WideBody extends StatelessWidget {
                 child: SectionHeader(
                   title: 'Student life',
                   actionLabel: 'All events',
-                  onAction: () => _openEvents(context),
+                  onAction: () => openEvents(context),
                 ),
               ),
               LayoutBuilder(
@@ -365,10 +364,6 @@ class _WideBody extends StatelessWidget {
     );
   }
 }
-
-void _openEvents(BuildContext context) =>
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (_) => const EventsScreen()));
 
 /// Pulls the body up over the header. The overlap starts smaller and grows
 /// as the page scrolls, so the cards appear to float up over the header
@@ -497,7 +492,7 @@ class _DashboardHeader extends StatelessWidget {
                 '${SampleData.university} · ${SampleData.dashboardTitle}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 12.5, color: Color(0xFFCBD3E4)),
+                style: TextStyle(fontSize: 12.5, color: Color(0xFFC9C1B1)),
               ),
             ],
           ),
@@ -535,7 +530,7 @@ class _DashboardHeader extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: const LinearGradient(
-                    colors: [Color(0xFF3A4F7A), Color(0xFF1B2B4F)],
+                    colors: [Color(0xFF3B4D63), Color(0xFF1B2632)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -569,7 +564,7 @@ class _DashboardHeader extends StatelessWidget {
             children: [
               Text(
                 '$_greeting,',
-                style: const TextStyle(fontSize: 14, color: Color(0xFFCBD3E4)),
+                style: const TextStyle(fontSize: 14, color: Color(0xFFC9C1B1)),
               ),
               Text(
                 state.preferredName,
@@ -583,7 +578,7 @@ class _DashboardHeader extends StatelessWidget {
               Text(
                 '${student.studentId}  |  ${student.programme}',
                 maxLines: 2,
-                style: const TextStyle(fontSize: 13, color: Color(0xFFE1E6F0)),
+                style: const TextStyle(fontSize: 13, color: Color(0xFFEEE9DF)),
               ),
               const SizedBox(height: 8),
               Wrap(
@@ -610,76 +605,91 @@ class _DashboardHeader extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [AppColors.navy, AppColors.navyLight],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          colors: [AppColors.abyss, AppColors.blueFantastic],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
         borderRadius: const BorderRadius.vertical(bottom: Radius.circular(28)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.navy.withValues(alpha: 0.25),
+            color: AppColors.abyss.withValues(alpha: 0.3),
             blurRadius: 18,
             offset: const Offset(0, 8),
           ),
         ],
       ),
-      child: SafeArea(
-        bottom: false,
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-            constraints: BoxConstraints(maxWidth: maxWidth),
-            padding: const EdgeInsets.fromLTRB(20, 12, 12, 26 + _overlap),
-            child: AnimatedBuilder(
-              animation: scroll,
-              builder: (context, child) {
-                final offset = motion && scroll.hasClients
-                    ? scroll.offset
-                    : 0.0;
-                return Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    // Parallax crest watermark (background pattern).
-                    Positioned(
-                      right: wide ? 360 : -30,
-                      top: 10 + offset * 0.5,
-                      child: Floating(
-                        amplitude: 8,
-                        period: const Duration(seconds: 7),
-                        child: Icon(
-                          Icons.account_balance_rounded,
-                          size: 190,
-                          color: Colors.white.withValues(alpha: 0.035),
+      // Warm Burning Flame glow rising from the bottom-left corner.
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            center: const Alignment(-0.85, 1.25),
+            radius: 1.15,
+            colors: [
+              AppColors.flame.withValues(alpha: 0.38),
+              AppColors.truffle.withValues(alpha: 0.16),
+              Colors.transparent,
+            ],
+            stops: const [0, 0.45, 1],
+          ),
+        ),
+        child: SafeArea(
+          bottom: false,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              constraints: BoxConstraints(maxWidth: maxWidth),
+              padding: const EdgeInsets.fromLTRB(20, 12, 12, 26 + _overlap),
+              child: AnimatedBuilder(
+                animation: scroll,
+                builder: (context, child) {
+                  final offset = motion && scroll.hasClients
+                      ? scroll.offset
+                      : 0.0;
+                  return Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      // Parallax crest watermark (background pattern).
+                      Positioned(
+                        right: wide ? 360 : -30,
+                        top: 10 + offset * 0.5,
+                        child: Floating(
+                          amplitude: 8,
+                          period: const Duration(seconds: 7),
+                          child: Icon(
+                            Icons.account_balance_rounded,
+                            size: 190,
+                            color: Colors.white.withValues(alpha: 0.035),
+                          ),
                         ),
                       ),
-                    ),
-                    // Content drifts down and fades while scrolling away.
-                    Opacity(
-                      opacity: (1 - offset / 280).clamp(0.0, 1.0),
-                      child: Transform.translate(
-                        offset: Offset(0, offset * 0.3),
-                        child: child,
+                      // Content drifts down and fades while scrolling away.
+                      Opacity(
+                        opacity: (1 - offset / 280).clamp(0.0, 1.0),
+                        child: Transform.translate(
+                          offset: Offset(0, offset * 0.3),
+                          child: child,
+                        ),
                       ),
-                    ),
+                    ],
+                  );
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    identity,
+                    const SizedBox(height: 22),
+                    if (wide)
+                      Row(
+                        children: [
+                          Expanded(child: profile),
+                          const SizedBox(width: 24),
+                          _HeroTodayCard(state: state),
+                        ],
+                      )
+                    else
+                      profile,
                   ],
-                );
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  identity,
-                  const SizedBox(height: 22),
-                  if (wide)
-                    Row(
-                      children: [
-                        Expanded(child: profile),
-                        const SizedBox(width: 24),
-                        _HeroTodayCard(state: state),
-                      ],
-                    )
-                  else
-                    profile,
-                ],
+                ),
               ),
             ),
           ),
@@ -793,7 +803,7 @@ class _HeroTodayCard extends StatelessWidget {
                     const Text(
                       'Your day at a glance',
                       style: TextStyle(
-                        color: Color(0xFFCBD3E4),
+                        color: Color(0xFFC9C1B1),
                         fontSize: 12.5,
                       ),
                     ),
@@ -906,7 +916,7 @@ class _StickyBar extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.navy.withValues(alpha: 0.9),
+              color: AppColors.abyss.withValues(alpha: 0.92),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.15),
@@ -1631,10 +1641,10 @@ class _TransportNotice extends StatelessWidget {
       child: HoverLift(
         child: Container(
           decoration: BoxDecoration(
-            color: const Color(0xFFF6EBDD),
+            color: const Color(0xFFECE7DD),
             borderRadius: AppStyle.cardRadius,
             border: Border.all(
-              color: const Color(0xFF8A5A1E).withValues(alpha: 0.3),
+              color: const Color(0xFF8A7F6B).withValues(alpha: 0.3),
             ),
           ),
           child: Material(
@@ -1649,7 +1659,7 @@ class _TransportNotice extends StatelessWidget {
                     const IconTile(
                       icon: Icons.directions_bus_rounded,
                       color: Colors.white,
-                      background: Color(0xFF8A5A1E),
+                      background: Color(0xFF8A7F6B),
                       size: 44,
                     ),
                     const SizedBox(width: 12),
@@ -1665,7 +1675,7 @@ class _TransportNotice extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w800,
-                                    color: Color(0xFF5C3B10),
+                                    color: Color(0xFF4A3B2C),
                                   ),
                                 ),
                               ),
@@ -1681,7 +1691,7 @@ class _TransportNotice extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 13,
                               height: 1.3,
-                              color: Color(0xFF6B4A1C),
+                              color: Color(0xFF5A4632),
                             ),
                           ),
                         ],
@@ -1690,7 +1700,7 @@ class _TransportNotice extends StatelessWidget {
                     const SizedBox(width: 4),
                     const Icon(
                       Icons.chevron_right_rounded,
-                      color: Color(0xFF8A5A1E),
+                      color: Color(0xFF8A7F6B),
                     ),
                   ],
                 ),
@@ -1714,7 +1724,7 @@ class _Footer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 28),
       child: const Text(
         '${SampleData.appName} v1.0 · ${SampleData.university}\n'
-        'Prototype with sample data',
+        'Student prototype with sample data · not an official MIT app',
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 12, color: AppColors.muted),
       ),

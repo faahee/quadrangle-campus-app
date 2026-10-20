@@ -87,4 +87,72 @@ void main() {
     expect(find.text('Latest alerts'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('Pages open inside the tab, keeping the nav bar', (tester) async {
+    await pumpApp(tester);
+
+    await tester.tap(find.text('Services'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Fees'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Fees & payments'), findsOneWidget);
+    expect(find.text('Alerts'), findsOneWidget); // floating nav still shown
+
+    // Tapping the active tab again pops back to its first page.
+    await tester.tap(find.text('Services'));
+    await tester.pumpAndSettle();
+    expect(find.text('Campus services'), findsOneWidget);
+  });
+
+  testWidgets('Request form validates and submits', (tester) async {
+    await pumpApp(tester);
+
+    Future<void> show(Finder f) async {
+      await Scrollable.ensureVisible(tester.element(f), alignment: 0.4);
+      await tester.pumpAndSettle();
+    }
+
+    await tester.tap(find.text('Services'));
+    await tester.pumpAndSettle();
+    await show(find.text('Requests'));
+    await tester.tap(find.text('Requests'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('New request'));
+    await tester.pumpAndSettle();
+    expect(find.text('Your details'), findsOneWidget);
+
+    // Submitting an empty form shows the validation messages.
+    await show(find.text('Submit request'));
+    await tester.tap(find.text('Submit request'));
+    await tester.pumpAndSettle();
+    expect(find.text('Please confirm before submitting'), findsOneWidget);
+    expect(find.text('Pick a date'), findsOneWidget);
+
+    // Fill in every required field.
+    await show(find.text('IT support'));
+    await tester.tap(find.text('IT support'));
+    await tester.enterText(
+        find.widgetWithText(TextFormField, 'Subject'), 'Laptop cannot print');
+    await tester.enterText(find.widgetWithText(TextFormField, 'Details'),
+        'The library printers reject my student login every time.');
+    await show(find.text('Needed by'));
+    await tester.tap(find.text('Needed by'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('OK'));
+    await tester.pumpAndSettle();
+    await show(find.byType(Checkbox));
+    await tester.tap(find.byType(Checkbox));
+    await tester.pumpAndSettle();
+
+    await show(find.text('Submit request'));
+    await tester.tap(find.text('Submit request'));
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpAndSettle();
+    expect(find.text('Request submitted'), findsOneWidget);
+
+    await tester.tap(find.text('Done'));
+    await tester.pumpAndSettle();
+    expect(find.text('Laptop cannot print'), findsOneWidget);
+  });
 }

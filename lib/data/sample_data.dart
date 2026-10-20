@@ -9,18 +9,18 @@ class SampleData {
   SampleData._();
 
   static const String appName = 'Quadrangle';
-  static const String university = 'Kingsbridge University';
+  static const String university = 'MIT';
   static const String dashboardTitle = 'Student Dashboard';
 
   static const Student student = Student(
     fullName: 'Aarav Menon',
     preferredName: 'Aarav',
-    studentId: 'KBU-23-04817',
+    studentId: 'MIT-23-04817',
     programme: 'BSc (Hons) Computer Science',
     faculty: 'Faculty of Computing & Informatics',
     yearLabel: 'Year 3',
     semester: 'Semester 5',
-    email: 'aarav.menon@student.kingsbridge.edu',
+    email: 'aarav.menon@students.mit.example',
     phone: '+1 (555) 014-2291',
     advisor: 'Dr. Eleanor Hughes',
     intake: 'September 2023',
@@ -31,7 +31,7 @@ class SampleData {
   static const double cgpa = 3.68;
   static const int creditsEarned = 96;
   static const int creditsRequired = 120;
-  static const String nextAdvisorMeeting = 'Fri, 2 Oct · 3:00 PM';
+  static const String nextAdvisorMeeting = 'Fri, 23 Oct · 3:00 PM';
 
   // ---------- Campus services (quick access) ----------
   static const List<CampusService> services = [
@@ -40,8 +40,8 @@ class SampleData {
       title: 'Timetable',
       subtitle: 'Classes & rooms',
       icon: Icons.calendar_month_rounded,
-      color: Color(0xFF24507F),
-      tint: Color(0xFFE3ECF7),
+      color: Color(0xFF2C3B4D),
+      tint: Color(0xFFE2E6EB),
       badge: 'Today',
     ),
     CampusService(
@@ -49,8 +49,8 @@ class SampleData {
       title: 'Results',
       subtitle: 'Grades & GPA',
       icon: Icons.workspace_premium_rounded,
-      color: Color(0xFF1F6F6B),
-      tint: Color(0xFFE1F0EE),
+      color: Color(0xFFC9742E),
+      tint: Color(0xFFFCEBDA),
       badge: 'New',
     ),
     CampusService(
@@ -58,16 +58,16 @@ class SampleData {
       title: 'Attendance',
       subtitle: 'Per-course record',
       icon: Icons.fact_check_rounded,
-      color: Color(0xFF2E6B45),
-      tint: Color(0xFFE3F1E7),
+      color: Color(0xFF4F7A5C),
+      tint: Color(0xFFE3ECE5),
     ),
     CampusService(
       id: 'fees',
       title: 'Fees',
       subtitle: 'Invoices & payments',
       icon: Icons.account_balance_wallet_rounded,
-      color: Color(0xFF8E2231),
-      tint: Color(0xFFF8E3E5),
+      color: Color(0xFFA35139),
+      tint: Color(0xFFF4E2DB),
       badge: 'Due soon',
     ),
     CampusService(
@@ -75,8 +75,8 @@ class SampleData {
       title: 'Library',
       subtitle: 'Loans & study rooms',
       icon: Icons.local_library_rounded,
-      color: Color(0xFF5B3A73),
-      tint: Color(0xFFEFE7F4),
+      color: Color(0xFF1B2632),
+      tint: Color(0xFFDEE1E4),
       badge: '3 loans',
     ),
     CampusService(
@@ -84,8 +84,8 @@ class SampleData {
       title: 'Shuttle',
       subtitle: 'Live bus routes',
       icon: Icons.directions_bus_rounded,
-      color: Color(0xFF8A5A1E),
-      tint: Color(0xFFF6EBDD),
+      color: Color(0xFF8A7F6B),
+      tint: Color(0xFFECE7DD),
       badge: 'Live',
     ),
     CampusService(
@@ -93,16 +93,16 @@ class SampleData {
       title: 'Clubs',
       subtitle: 'Societies & activities',
       icon: Icons.groups_rounded,
-      color: Color(0xFFA0432E),
-      tint: Color(0xFFF8E6E0),
+      color: Color(0xFF7E3B28),
+      tint: Color(0xFFF0E0D9),
     ),
     CampusService(
-      id: 'helpdesk',
-      title: 'Helpdesk',
-      subtitle: 'Support & FAQs',
-      icon: Icons.support_agent_rounded,
-      color: Color(0xFF37516B),
-      tint: Color(0xFFE5ECF2),
+      id: 'requests',
+      title: 'Requests',
+      subtitle: 'Forms & support',
+      icon: Icons.assignment_rounded,
+      color: Color(0xFF55677D),
+      tint: Color(0xFFE2E6EA),
     ),
   ];
 
@@ -111,15 +111,15 @@ class SampleData {
     Announcement(
       id: 'reg-s6',
       title: 'Semester 6 course registration closes',
-      message: 'Register your Semester 6 courses on the portal before Friday, 9 Oct, 5:00 PM.',
+      message: 'Register your Semester 6 courses on the portal before Friday, 13 Nov, 5:00 PM.',
       details:
           'Course registration for Semester 6 (January 2027 intake) is now open. '
           'Please meet your academic advisor if you plan to take more than 20 credit hours, '
           'retake a course, or change your elective stream.\n\n'
           'Late registration will incur a fee of \$50 and is subject to seat availability. '
           'Students with outstanding fees must settle them before registration is approved.',
-      postedOn: 'Posted 29 Sep 2026 · Registry Office',
-      deadline: 'Fri, 9 Oct 2026 · 5:00 PM',
+      postedOn: 'Posted 20 Oct 2026 · Registry Office',
+      deadline: 'Fri, 13 Nov 2026 · 5:00 PM',
       badge: 'Due soon',
       category: AlertCategory.academic,
       icon: Icons.edit_calendar_rounded,
@@ -130,13 +130,13 @@ class SampleData {
     Announcement(
       id: 'fee-s6',
       title: 'Tuition fee instalment due',
-      message: 'Your Semester 6 tuition of \$2,450.00 is due on 16 Oct 2026.',
+      message: 'Your Semester 6 tuition of \$2,450.00 is due on 20 Nov 2026.',
       details:
           'Payments can be made through the Fees section of this app, by bank transfer, '
           'or at the Bursary counter (Admin Block, Level 1) from 9:00 AM to 4:30 PM.\n\n'
           'Students on scholarship should upload their sponsor letter before the due date.',
-      postedOn: 'Posted 27 Sep 2026 · Bursary',
-      deadline: 'Fri, 16 Oct 2026',
+      postedOn: 'Posted 18 Oct 2026 · Bursary',
+      deadline: 'Fri, 20 Nov 2026',
       badge: 'Action',
       category: AlertCategory.finance,
       icon: Icons.receipt_long_rounded,
@@ -147,13 +147,13 @@ class SampleData {
       id: 'lib-247',
       title: 'Library open 24/7 during exam weeks',
       message:
-          'The Main Library stays open around the clock from 19 Oct to 6 Nov.',
+          'The Main Library stays open around the clock from 23 Nov to 11 Dec.',
       details:
           'Level 2 quiet zones and all group study rooms will be available 24 hours a day. '
           'A valid student card is required for entry after 10:00 PM. '
           'Free coffee will be served at the ground floor lounge from midnight to 2:00 AM.',
-      postedOn: 'Posted 26 Sep 2026 · Library Services',
-      deadline: 'Starts Mon, 19 Oct 2026',
+      postedOn: 'Posted 17 Oct 2026 · Library Services',
+      deadline: 'Starts Mon, 23 Nov 2026',
       badge: 'New',
       category: AlertCategory.facilities,
       icon: Icons.local_library_rounded,
@@ -163,13 +163,13 @@ class SampleData {
     Announcement(
       id: 'shuttle-b',
       title: 'Route B diverted via East Ring Road',
-      message: 'Shuttle Route B will skip North Gate from 5–12 Oct due to roadworks.',
+      message: 'Shuttle Route B will skip North Gate from 9–16 Nov due to roadworks.',
       details:
           'A temporary stop will be placed outside the Sports Complex. '
           'Please allow an extra 10 minutes for journeys to the Science Park. '
           'Live bus positions are available in the Shuttle section.',
-      postedOn: 'Posted 28 Sep 2026 · Campus Transport',
-      deadline: 'Mon, 5 Oct – Mon, 12 Oct',
+      postedOn: 'Posted 19 Oct 2026 · Campus Transport',
+      deadline: 'Mon, 9 Nov – Mon, 16 Nov',
       badge: 'Notice',
       category: AlertCategory.transport,
       icon: Icons.alt_route_rounded,
@@ -179,13 +179,13 @@ class SampleData {
     Announcement(
       id: 'deans-list',
       title: "Dean's List Scholarship briefing",
-      message: 'Briefing on Wed, 7 Oct at 2:00 PM in Lecture Theatre 2.',
+      message: 'Briefing on Wed, 11 Nov at 2:00 PM in Lecture Theatre 2.',
       details:
           "Students with a CGPA of 3.60 and above are invited to learn about the Dean's List "
           'Scholarship, which covers up to 50% of tuition fees for the next academic year. '
           'Bring a copy of your latest transcript.',
-      postedOn: 'Posted 25 Sep 2026 · Faculty of Computing',
-      deadline: 'Wed, 7 Oct 2026 · 2:00 PM',
+      postedOn: 'Posted 16 Oct 2026 · Faculty of Computing',
+      deadline: 'Wed, 11 Nov 2026 · 2:00 PM',
       badge: 'New',
       category: AlertCategory.academic,
       icon: Icons.school_rounded,
@@ -195,17 +195,17 @@ class SampleData {
     Announcement(
       id: 'wifi-c',
       title: 'Wi-Fi maintenance in Block C',
-      message: 'Wireless access in Block C will be unavailable on Sat, 3 Oct, 11 PM – 3 AM.',
+      message: 'Wireless access in Block C will be unavailable on Sat, 7 Nov, 11 PM – 3 AM.',
       details:
           'IT Services is upgrading access points in Block C. Wired ports in the computer labs '
           'will remain available. Report any issues after the upgrade via the Helpdesk.',
-      postedOn: 'Posted 24 Sep 2026 · IT Services',
-      deadline: 'Sat, 3 Oct 2026 · 11:00 PM',
+      postedOn: 'Posted 15 Oct 2026 · IT Services',
+      deadline: 'Sat, 7 Nov 2026 · 11:00 PM',
       badge: 'Info',
       category: AlertCategory.facilities,
       icon: Icons.wifi_off_rounded,
-      relatedServiceId: 'helpdesk',
-      relatedActionLabel: 'Contact Helpdesk',
+      relatedServiceId: 'requests',
+      relatedActionLabel: 'Raise a request',
     ),
   ];
 
@@ -214,8 +214,8 @@ class SampleData {
     CampusEvent(
       id: 'career-fair',
       title: 'Career Discovery Fair',
-      day: '14',
-      month: 'OCT',
+      day: '18',
+      month: 'NOV',
       weekday: 'Wednesday',
       time: '10:00 AM – 4:00 PM',
       venue: 'Great Hall',
@@ -231,25 +231,25 @@ class SampleData {
     CampusEvent(
       id: 'chess-open',
       title: 'Inter-Faculty Chess Open',
-      day: '17',
-      month: 'OCT',
+      day: '21',
+      month: 'NOV',
       weekday: 'Saturday',
       time: '9:30 AM – 5:00 PM',
       venue: 'Old Library Reading Room',
-      organiser: 'Kingsbridge Chess Club',
+      organiser: 'MIT Chess Club',
       description:
           'A seven-round Swiss tournament open to all skill levels. Trophies for the top three '
           'players and the best-performing faculty team. Boards and clocks are provided.',
       category: 'Club',
       seatsLeft: 16,
       icon: Icons.castle_rounded,
-      color: Color(0xFF8A5A1E),
+      color: Color(0xFF8A7F6B),
     ),
     CampusEvent(
       id: 'flutter-night',
       title: 'Flutter Build Night',
-      day: '21',
-      month: 'OCT',
+      day: '25',
+      month: 'NOV',
       weekday: 'Wednesday',
       time: '6:00 PM – 9:00 PM',
       venue: 'Innovation Lab 2',
@@ -260,24 +260,24 @@ class SampleData {
       category: 'Workshop',
       seatsLeft: 8,
       icon: Icons.code_rounded,
-      color: Color(0xFF1F6F6B),
+      color: Color(0xFFC9742E),
     ),
     CampusEvent(
       id: 'charity-run',
       title: 'Autumn Charity Run 5K',
-      day: '24',
-      month: 'OCT',
+      day: '28',
+      month: 'NOV',
       weekday: 'Saturday',
       time: '7:00 AM – 10:00 AM',
       venue: 'Main Quad',
       organiser: 'Student Union',
       description:
-          'Run, jog, or walk a 5 km loop around campus. All proceeds go to the Kingsbridge '
-          'Community Food Bank. Registration includes a T-shirt and finisher medal.',
+          'Run, jog, or walk a 5 km loop around campus. All proceeds go to the campus '
+          'community food bank. Registration includes a T-shirt and finisher medal.',
       category: 'Sports',
       seatsLeft: 120,
       icon: Icons.directions_run_rounded,
-      color: Color(0xFF8E2231),
+      color: Color(0xFFA35139),
     ),
   ];
 
@@ -453,21 +453,21 @@ class SampleData {
   static List<Invoice> invoices() => [
     Invoice(
       id: 'INV-2026-0874',
-      title: 'Hostel Fee – October',
+      title: 'Hostel Fee – November',
       amount: 320.00,
-      dueDate: '5 Oct 2026',
+      dueDate: '9 Nov 2026',
     ),
     Invoice(
       id: 'INV-2026-0802',
       title: 'Library Late Fine',
       amount: 4.50,
-      dueDate: '10 Oct 2026',
+      dueDate: '14 Nov 2026',
     ),
     Invoice(
       id: 'INV-2026-0931',
       title: 'Tuition Fee – Semester 6',
       amount: 2450.00,
-      dueDate: '16 Oct 2026',
+      dueDate: '20 Nov 2026',
     ),
     Invoice(
       id: 'INV-2026-0610',
@@ -484,20 +484,20 @@ class SampleData {
       id: 'b1',
       title: 'Clean Code',
       author: 'Robert C. Martin',
-      dueDate: DateTime(2026, 10, 3),
+      dueDate: DateTime(2026, 10, 24),
     ),
     BorrowedBook(
       id: 'b2',
       title: 'Operating System Concepts',
       author: 'Silberschatz, Galvin & Gagne',
-      dueDate: DateTime(2026, 10, 8),
+      dueDate: DateTime(2026, 11, 2),
       renewals: 1,
     ),
     BorrowedBook(
       id: 'b3',
       title: 'Designing Data-Intensive Applications',
       author: 'Martin Kleppmann',
-      dueDate: DateTime(2026, 10, 12),
+      dueDate: DateTime(2026, 11, 9),
     ),
   ];
 
@@ -526,7 +526,7 @@ class SampleData {
       to: 'Residential Colleges',
       frequency: 'Every 10 min',
       status: 'On time',
-      color: Color(0xFF24507F),
+      color: Color(0xFF2C3B4D),
       stops: [
         'Main Gate',
         'Main Library',
@@ -542,7 +542,7 @@ class SampleData {
       to: 'Science Park',
       frequency: 'Every 20 min',
       status: 'Diverted',
-      color: Color(0xFF8A5A1E),
+      color: Color(0xFF8A7F6B),
       stops: [
         'Sports Complex (temp.)',
         'East Ring Road',
@@ -557,7 +557,7 @@ class SampleData {
       to: 'City Station',
       frequency: 'Every 30 min',
       status: 'Delayed',
-      color: Color(0xFF8E2231),
+      color: Color(0xFFA35139),
       stops: [
         'Campus Central',
         'Medical Centre',
@@ -572,7 +572,7 @@ class SampleData {
       to: 'Residential Colleges',
       frequency: '9 PM – 1 AM · every 15 min',
       status: 'On time',
-      color: Color(0xFF2E6B45),
+      color: Color(0xFF4F7A5C),
       stops: ['Main Library', 'Student Centre', 'Residential Colleges'],
     ),
   ];
@@ -588,7 +588,7 @@ class SampleData {
       description:
           'Weekly coding challenges, hackathon prep, and build nights.',
       icon: Icons.terminal_rounded,
-      color: Color(0xFF1F6F6B),
+      color: Color(0xFFC9742E),
     ),
     Club(
       id: 'debate',
@@ -598,7 +598,7 @@ class SampleData {
       meets: 'Thursdays · 6:00 PM · Room A-301',
       description: 'British Parliamentary debate training and inter-varsity tournaments.',
       icon: Icons.record_voice_over_rounded,
-      color: Color(0xFF8E2231),
+      color: Color(0xFFA35139),
     ),
     Club(
       id: 'robotics',
@@ -608,7 +608,7 @@ class SampleData {
       meets: 'Wednesdays · 5:00 PM · Innovation Lab 1',
       description: 'Design, build, and race autonomous robots.',
       icon: Icons.precision_manufacturing_rounded,
-      color: Color(0xFF24507F),
+      color: Color(0xFF2C3B4D),
     ),
     Club(
       id: 'photo',
@@ -618,7 +618,7 @@ class SampleData {
       meets: 'Saturdays · 8:00 AM · Main Quad',
       description: 'Photo walks, editing workshops, and an annual exhibition.',
       icon: Icons.photo_camera_rounded,
-      color: Color(0xFF5B3A73),
+      color: Color(0xFF1B2632),
     ),
     Club(
       id: 'chess',
@@ -628,7 +628,7 @@ class SampleData {
       meets: 'Tuesdays · 7:00 PM · Old Library',
       description: 'Casual games, coaching sessions, and rated tournaments.',
       icon: Icons.castle_rounded,
-      color: Color(0xFF8A5A1E),
+      color: Color(0xFF8A7F6B),
     ),
     Club(
       id: 'drama',
@@ -639,34 +639,47 @@ class SampleData {
       description:
           'Two main-stage productions every year. No experience needed.',
       icon: Icons.theater_comedy_rounded,
-      color: Color(0xFFA0432E),
+      color: Color(0xFF7E3B28),
     ),
   ];
 
   // ---------- Helpdesk ----------
-  static const List<String> ticketCategories = [
-    'IT Services',
-    'Registry',
-    'Bursary',
-    'Hostel',
-    'Library',
-    'Counselling',
+  static const List<RequestType> requestTypes = [
+    RequestType('transcript', 'Transcript', Icons.description_rounded),
+    RequestType('enrolment', 'Enrolment letter', Icons.verified_rounded),
+    RequestType('leave', 'Leave of absence', Icons.event_busy_rounded),
+    RequestType('course', 'Course change', Icons.swap_horiz_rounded),
+    RequestType('fees', 'Fee extension', Icons.payments_rounded),
+    RequestType('hostel', 'Hostel repair', Icons.build_rounded),
+    RequestType('it', 'IT support', Icons.computer_rounded),
+    RequestType('other', 'Other', Icons.more_horiz_rounded),
   ];
 
-  static List<HelpTicket> tickets() => const [
-    HelpTicket(
-      id: 'HD-10482',
-      category: 'IT Services',
+  static RequestType requestType(String id) =>
+      requestTypes.firstWhere((t) => t.id == id);
+
+  static List<StudentRequest> requests() => [
+    StudentRequest(
+      id: 'REQ-2026-0141',
+      type: requestType('it'),
       subject: 'Cannot connect to campus Wi-Fi in Block C',
-      status: 'In progress',
-      date: '27 Sep 2026',
+      details: 'My laptop drops the connection every few minutes in Block C.',
+      preferredDate: DateTime(2026, 10, 22),
+      priority: 'Normal',
+      contactMethod: 'Email',
+      submittedOn: DateTime(2026, 10, 14),
+      status: RequestStatus.inReview,
     ),
-    HelpTicket(
-      id: 'HD-10311',
-      category: 'Registry',
-      subject: 'Request for enrolment confirmation letter',
-      status: 'Resolved',
-      date: '18 Sep 2026',
+    StudentRequest(
+      id: 'REQ-2026-0118',
+      type: requestType('enrolment'),
+      subject: 'Enrolment confirmation letter for visa renewal',
+      details: 'Please include my programme and expected graduation date.',
+      preferredDate: DateTime(2026, 10, 9),
+      priority: 'Urgent',
+      contactMethod: 'Email',
+      submittedOn: DateTime(2026, 10, 2),
+      status: RequestStatus.completed,
     ),
   ];
 

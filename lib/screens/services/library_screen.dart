@@ -30,6 +30,7 @@ class LibraryScreen extends StatelessWidget {
 
     showModalBottomSheet<void>(
       context: context,
+      useRootNavigator: true,
       showDragHandle: true,
       isScrollControlled: true,
       backgroundColor: Colors.white,
@@ -113,7 +114,7 @@ class LibraryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = AppStateScope.of(context);
-    final today = DateTime(2026, 9, 29);
+    final today = DateUtils.dateOnly(DateTime.now());
 
     return Scaffold(
       appBar: AppBar(title: const Text('Library')),
@@ -126,10 +127,10 @@ class LibraryScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEFE7F4),
+                  color: const Color(0xFFDEE1E4),
                   borderRadius: AppStyle.cardRadius,
                   border: Border.all(
-                    color: const Color(0xFF5B3A73).withValues(alpha: 0.25),
+                    color: const Color(0xFF1B2632).withValues(alpha: 0.25),
                   ),
                 ),
                 child: const Row(
@@ -137,7 +138,7 @@ class LibraryScreen extends StatelessWidget {
                     IconTile(
                       icon: Icons.access_time_filled_rounded,
                       color: Colors.white,
-                      background: Color(0xFF5B3A73),
+                      background: Color(0xFF1B2632),
                       size: 44,
                     ),
                     SizedBox(width: 12),
@@ -149,14 +150,14 @@ class LibraryScreen extends StatelessWidget {
                             'Main Library · Open now',
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
-                              color: Color(0xFF3F2752),
+                              color: Color(0xFF1B2632),
                             ),
                           ),
                           Text(
                             'Mon–Fri 8:00 AM – 11:00 PM · Sat–Sun 10:00 AM – 6:00 PM',
                             style: TextStyle(
                               fontSize: 12.5,
-                              color: Color(0xFF5B3A73),
+                              color: Color(0xFF1B2632),
                             ),
                           ),
                         ],
@@ -224,7 +225,7 @@ class LibraryScreen extends StatelessWidget {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
-                                colors: [Color(0xFF5B3A73), Color(0xFF7A5494)],
+                                colors: [Color(0xFF1B2632), Color(0xFF3B4D63)],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                               ),

@@ -7,7 +7,6 @@ import '../data/sample_data.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
-import 'events_screen.dart';
 import 'home_shell.dart';
 import 'service_router.dart';
 
@@ -21,9 +20,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = AppStateScope.of(context);
     const student = SampleData.student;
-    final openTickets = state.tickets
-        .where((t) => t.status != 'Resolved')
-        .length;
+    final openRequests = state.openRequests;
 
     return Scaffold(
       appBar: AppBar(title: const Text('My profile')),
@@ -52,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: const Color(0xFF2B3E66),
+                        color: const Color(0xFF2C3B4D),
                         border: Border.all(color: AppColors.gold, width: 3),
                       ),
                       child: Text(
@@ -80,7 +77,7 @@ class ProfileScreen extends StatelessWidget {
                     Text(
                       'Preferred name: ${state.preferredName}',
                       style: const TextStyle(
-                        color: Color(0xFFCBD3E4),
+                        color: Color(0xFFC9C1B1),
                         fontSize: 13,
                       ),
                     ),
@@ -132,9 +129,7 @@ class ProfileScreen extends StatelessWidget {
                     value: '${state.registeredEvents.length}',
                     label: 'Events',
                     icon: Icons.event_available_rounded,
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const EventsScreen()),
-                    ),
+                    onTap: () => openEvents(context),
                   ),
                   const SizedBox(width: 10),
                   _CounterTile(
@@ -145,10 +140,10 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   _CounterTile(
-                    value: '$openTickets',
-                    label: 'Tickets',
-                    icon: Icons.support_agent_rounded,
-                    onTap: () => openService(context, 'helpdesk'),
+                    value: '$openRequests',
+                    label: 'Requests',
+                    icon: Icons.assignment_rounded,
+                    onTap: () => openService(context, 'requests'),
                   ),
                 ],
               ),
@@ -500,7 +495,7 @@ class _DigitalIdCard extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF1B2B4F), AppColors.navy],
+          colors: [Color(0xFF1B2632), AppColors.navy],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -538,7 +533,7 @@ class _DigitalIdCard extends StatelessWidget {
                   ),
                   SizedBox(width: 8),
                   Text(
-                    'KINGSBRIDGE UNIVERSITY',
+                    'MIT · STUDENT ID',
                     style: TextStyle(
                       color: AppColors.gold,
                       fontWeight: FontWeight.w800,
@@ -556,7 +551,7 @@ class _DigitalIdCard extends StatelessWidget {
                     height: 84,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF2B3E66),
+                      color: const Color(0xFF2C3B4D),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Colors.white24),
                     ),
@@ -588,7 +583,7 @@ class _DigitalIdCard extends StatelessWidget {
                         Text(
                           student.programme,
                           style: const TextStyle(
-                            color: Color(0xFFCBD3E4),
+                            color: Color(0xFFC9C1B1),
                             fontSize: 12.5,
                           ),
                         ),
@@ -604,7 +599,7 @@ class _DigitalIdCard extends StatelessWidget {
                         const Text(
                           'Valid until Aug 2027',
                           style: TextStyle(
-                            color: Color(0xFFCBD3E4),
+                            color: Color(0xFFC9C1B1),
                             fontSize: 12,
                           ),
                         ),
