@@ -24,8 +24,8 @@ void main() {
   testWidgets('Dashboard shows all required sections', (tester) async {
     await pumpApp(tester);
 
-    expect(find.text('Quadrangle'), findsWidgets);
-    expect(find.text('Aarav'), findsOneWidget);
+    expect(find.text('MIT Campus'), findsWidgets);
+    expect(find.text('Mark'), findsOneWidget);
     expect(find.text('Academic snapshot'), findsOneWidget);
     expect(find.text('Quick access'), findsOneWidget);
     expect(find.text('Timetable'), findsOneWidget);
@@ -133,9 +133,13 @@ void main() {
     await show(find.text('IT support'));
     await tester.tap(find.text('IT support'));
     await tester.enterText(
-        find.widgetWithText(TextFormField, 'Subject'), 'Laptop cannot print');
-    await tester.enterText(find.widgetWithText(TextFormField, 'Details'),
-        'The library printers reject my student login every time.');
+      find.widgetWithText(TextFormField, 'Subject'),
+      'Laptop cannot print',
+    );
+    await tester.enterText(
+      find.widgetWithText(TextFormField, 'Details'),
+      'The library printers reject my student login every time.',
+    );
     await show(find.text('Needed by'));
     await tester.tap(find.text('Needed by'));
     await tester.pumpAndSettle();

@@ -10,11 +10,11 @@ import '../theme/app_theme.dart';
 import '../widgets/animations.dart';
 import '../widgets/announcement_card.dart';
 import '../widgets/campus_action_card.dart';
+import '../widgets/campus_building.dart';
 import '../widgets/common_widgets.dart';
 import '../widgets/event_card.dart';
 import 'home_shell.dart';
 import 'service_router.dart';
-import 'services/fees_screen.dart' show money;
 
 /// Width at which the dashboard switches to the two-column desktop layout.
 const double kWideLayout = 1000;
@@ -489,7 +489,7 @@ class _DashboardHeader extends StatelessWidget {
                 ),
               ),
               Text(
-                '${SampleData.university} · ${SampleData.dashboardTitle}',
+                '${SampleData.dashboardTitle} · Semester 5',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 12.5, color: Color(0xFFC9C1B1)),
@@ -543,16 +543,7 @@ class _DashboardHeader extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Text(
-                  student.initials,
-                  style: const TextStyle(
-                    fontFamily: 'Georgia',
-                    fontFamilyFallback: AppStyle.serifFallback,
-                    fontSize: 28,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.gold,
-                  ),
-                ),
+                child: StudentAvatar(initials: student.initials, size: 70),
               ),
             ),
           ),
@@ -650,15 +641,14 @@ class _DashboardHeader extends StatelessWidget {
                     children: [
                       // Parallax crest watermark (background pattern).
                       Positioned(
-                        right: wide ? 360 : -30,
+                        right: wide ? 360 : -60,
                         top: 10 + offset * 0.5,
                         child: Floating(
                           amplitude: 8,
                           period: const Duration(seconds: 7),
-                          child: Icon(
-                            Icons.account_balance_rounded,
-                            size: 190,
-                            color: Colors.white.withValues(alpha: 0.035),
+                          child: CampusBuilding(
+                            width: wide ? 340 : 260,
+                            opacity: 0.06,
                           ),
                         ),
                       ),
@@ -816,10 +806,6 @@ class _HeroTodayCard extends StatelessWidget {
                     line(
                       Icons.notifications_active_rounded,
                       '${state.unreadCount} unread alerts',
-                    ),
-                    line(
-                      Icons.account_balance_wallet_rounded,
-                      '${money(state.outstanding)} fees outstanding',
                     ),
                   ],
                 ),

@@ -373,3 +373,46 @@ class ResponsiveBody extends StatelessWidget {
     );
   }
 }
+
+/// Student photo in a circle. Put a picture at `assets/images/profile.jpg`;
+/// until then the student's initials are shown instead.
+class StudentAvatar extends StatelessWidget {
+  const StudentAvatar({
+    super.key,
+    required this.initials,
+    this.size = 76,
+    this.square = false,
+  });
+
+  static const String photo = 'assets/images/profile.jpg';
+
+  final String initials;
+  final double size;
+  final bool square;
+
+  @override
+  Widget build(BuildContext context) {
+    final fallback = Center(
+      child: Text(
+        initials,
+        style: TextStyle(
+          fontFamily: 'Georgia',
+          fontFamilyFallback: AppStyle.serifFallback,
+          fontSize: size * 0.37,
+          fontWeight: FontWeight.w700,
+          color: AppColors.gold,
+        ),
+      ),
+    );
+    final image = Image.asset(
+      photo,
+      width: size,
+      height: size,
+      fit: BoxFit.cover,
+      errorBuilder: (_, _, _) => fallback,
+    );
+    return square
+        ? ClipRRect(borderRadius: BorderRadius.circular(8), child: image)
+        : ClipOval(child: image);
+  }
+}

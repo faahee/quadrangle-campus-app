@@ -1,5 +1,5 @@
 name: student_campus_app
-description: "Quadrangle – a Student Campus App dashboard built with Flutter Container widgets."
+description: "MIT Campus – a Student Campus App dashboard built with Flutter Container widgets."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -56,6 +56,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # Student photo: add assets/images/profile.jpg to show it in the app.
+  assets:
+    - assets/images/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

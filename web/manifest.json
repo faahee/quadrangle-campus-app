@@ -1,6 +1,6 @@
 {
-    "name": "Quadrangle – Student Campus App",
-    "short_name": "Quadrangle",
+    "name": "MIT Campus – Student Dashboard",
+    "short_name": "MIT Campus",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#FBF8F1",

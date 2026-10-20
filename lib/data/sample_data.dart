@@ -8,19 +8,19 @@ import 'models.dart';
 class SampleData {
   SampleData._();
 
-  static const String appName = 'Quadrangle';
+  static const String appName = 'MIT Campus';
   static const String university = 'MIT';
   static const String dashboardTitle = 'Student Dashboard';
 
   static const Student student = Student(
-    fullName: 'Aarav Menon',
-    preferredName: 'Aarav',
+    fullName: 'Mark Zuck',
+    preferredName: 'Mark',
     studentId: 'MIT-23-04817',
     programme: 'BSc (Hons) Computer Science',
     faculty: 'Faculty of Computing & Informatics',
     yearLabel: 'Year 3',
     semester: 'Semester 5',
-    email: 'aarav.menon@students.mit.example',
+    email: 'mark.zuck@students.mit.example',
     phone: '+1 (555) 014-2291',
     advisor: 'Dr. Eleanor Hughes',
     intake: 'September 2023',

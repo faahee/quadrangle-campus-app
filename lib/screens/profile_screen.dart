@@ -52,15 +52,9 @@ class ProfileScreen extends StatelessWidget {
                         color: const Color(0xFF2C3B4D),
                         border: Border.all(color: AppColors.gold, width: 3),
                       ),
-                      child: Text(
-                        student.initials,
-                        style: const TextStyle(
-                          fontFamily: 'Georgia',
-                          fontFamilyFallback: AppStyle.serifFallback,
-                          fontSize: 34,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.gold,
-                        ),
+                      child: StudentAvatar(
+                        initials: student.initials,
+                        size: 86,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -555,15 +549,10 @@ class _DigitalIdCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Colors.white24),
                     ),
-                    child: Text(
-                      student.initials,
-                      style: const TextStyle(
-                        fontFamily: 'Georgia',
-                        fontFamilyFallback: AppStyle.serifFallback,
-                        fontSize: 26,
-                        color: AppColors.gold,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    child: StudentAvatar(
+                      initials: student.initials,
+                      size: 66,
+                      square: true,
                     ),
                   ),
                   const SizedBox(width: 14),
