@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 
 import '../data/models.dart';
@@ -20,8 +22,6 @@ class AppState extends ChangeNotifier {
 
   bool pushNotifications = true;
   bool emailDigest = false;
-
-  int _requestCounter = 142;
 
   // ----- Profile -----
   void updatePreferredName(String name) {
@@ -111,6 +111,19 @@ class AppState extends ChangeNotifier {
   }
 
   // ----- Requests -----
+  /// Unique reference such as `REQ-2026-K3F9QZ` (time-based + random), so
+  /// submissions from different devices never clash in the database.
+  String _newReference() {
+    final now = DateTime.now();
+    final stamp = now.millisecondsSinceEpoch.toRadixString(36).toUpperCase();
+    final salt = Random()
+        .nextInt(1296)
+        .toRadixString(36)
+        .toUpperCase()
+        .padLeft(2, '0');
+    return 'REQ-${now.year}-${stamp.substring(stamp.length - 4)}$salt';
+  }
+
   int get openRequests => requests.where((r) => r.isOpen).length;
 
   StudentRequest addRequest({
@@ -123,7 +136,7 @@ class AppState extends ChangeNotifier {
     String? phone,
   }) {
     final request = StudentRequest(
-      id: 'REQ-${DateTime.now().year}-${(_requestCounter++).toString().padLeft(4, '0')}',
+      id: _newReference(),
       type: type,
       subject: subject,
       details: details,
