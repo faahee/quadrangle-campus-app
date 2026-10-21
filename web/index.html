@@ -33,6 +33,21 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <script>
+    // Remove the service worker older versions of this site installed, so
+    // browsers stop serving a cached copy of the app.
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        regs.forEach(function (r) { r.unregister(); });
+      });
+      if (window.caches) {
+        caches.keys().then(function (keys) {
+          keys.forEach(function (k) { caches.delete(k); });
+        });
+      }
+    }
+  </script>
+
   <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader
