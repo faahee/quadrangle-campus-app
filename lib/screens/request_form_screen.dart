@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/models.dart';
 import '../data/sample_data.dart';
 import '../state/app_state.dart';
+import '../services/request_repository.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common_widgets.dart';
 import '../widgets/form_fields.dart';
@@ -86,10 +87,8 @@ class _RequestFormScreenState extends State<RequestFormScreen> {
     form.save();
 
     setState(() => _submitting = true);
-    await Future.delayed(const Duration(milliseconds: 700)); // simulated send
-    if (!mounted) return;
-
-    final request = AppStateScope.of(context).addRequest(
+    final state = AppStateScope.of(context);
+    final request = state.addRequest(
       type: _type!,
       subject: _subject.text.trim(),
       details: _details.text.trim(),
@@ -98,6 +97,15 @@ class _RequestFormScreenState extends State<RequestFormScreen> {
       contactMethod: _contact,
       phone: _contact == 'Phone' ? _phone.text.trim() : null,
     );
+    // Store the complaint / report in Supabase (table campus_requests).
+    final saved = RequestRepository.isOnline
+        ? await RequestRepository.submit(
+            request,
+            student: SampleData.student,
+            email: _email.text.trim(),
+          )
+        : await Future.delayed(const Duration(milliseconds: 700), () => false);
+    if (!mounted) return;
     setState(() {
       _submitting = false;
       _dirty = false;
@@ -116,7 +124,12 @@ class _RequestFormScreenState extends State<RequestFormScreen> {
           'Your ${request.type.label.toLowerCase()} request has been sent.\n\n'
           'Reference: ${request.id}\n'
           'We will contact you by ${request.contactMethod.toLowerCase()} '
-          'within 2 working days.',
+          'within 2 working days.'
+          '${saved
+              ? '\n\nSaved to the campus database.'
+              : RequestRepository.isOnline
+              ? '\n\nCould not reach the server – saved on this device only.'
+              : ''}',
         ),
         actions: [
           FilledButton(

@@ -645,6 +645,8 @@ class SampleData {
 
   // ---------- Helpdesk ----------
   static const List<RequestType> requestTypes = [
+    RequestType('complaint', 'Complaint', Icons.report_gmailerrorred_rounded),
+    RequestType('report', 'Report an issue', Icons.flag_rounded),
     RequestType('transcript', 'Transcript', Icons.description_rounded),
     RequestType('enrolment', 'Enrolment letter', Icons.verified_rounded),
     RequestType('leave', 'Leave of absence', Icons.event_busy_rounded),
