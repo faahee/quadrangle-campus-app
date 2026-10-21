@@ -4,8 +4,9 @@ import 'package:flutter/widgets.dart';
 
 import '../data/models.dart';
 import '../data/sample_data.dart';
+import '../services/local_store.dart';
 
-/// Simple in-memory app state shared by every screen.
+/// App state (in memory; the student's own requests are also saved on the device) shared by every screen.
 /// Taps on cards and buttons update this state, and any widget that reads it
 /// through [AppStateScope.of] rebuilds automatically.
 class AppState extends ChangeNotifier {
@@ -18,7 +19,12 @@ class AppState extends ChangeNotifier {
 
   final List<Invoice> invoices = SampleData.invoices();
   final List<BorrowedBook> books = SampleData.books();
-  final List<StudentRequest> requests = SampleData.requests();
+
+  /// Requests submitted on this device (newest first), then the samples.
+  final List<StudentRequest> requests = [
+    ...LocalStore.loadRequests(),
+    ...SampleData.requests(),
+  ];
 
   bool pushNotifications = true;
   bool emailDigest = false;
@@ -148,6 +154,11 @@ class AppState extends ChangeNotifier {
       status: RequestStatus.submitted,
     );
     requests.insert(0, request);
+    LocalStore.saveRequests(
+      requests
+          .where((r) => !SampleData.requests().any((s) => s.id == r.id))
+          .toList(),
+    );
     notifyListeners();
     return request;
   }

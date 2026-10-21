@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'data/sample_data.dart';
 import 'navigation/app_routes.dart';
+import 'services/local_store.dart';
 import 'services/request_repository.dart';
 import 'screens/home_shell.dart';
 import 'state/app_state.dart';
@@ -11,6 +12,7 @@ import 'theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocalStore.init();
   await RequestRepository.init();
   runApp(const QuadrangleApp());
 }

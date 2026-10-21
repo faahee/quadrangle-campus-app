@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_campus_app/main.dart';
+import 'package:student_campus_app/services/local_store.dart';
 
 /// Pumps the app at a given logical size with "reduce motion" switched on,
 /// so reveal / floating / marquee animations don't make tests flaky.
@@ -16,6 +18,8 @@ Future<void> pumpApp(
   addTearDown(tester.view.reset);
   addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
 
+  SharedPreferences.setMockInitialValues({});
+  await LocalStore.init();
   await tester.pumpWidget(const QuadrangleApp());
   await tester.pumpAndSettle();
 }
@@ -158,5 +162,8 @@ void main() {
     await tester.tap(find.text('Done'));
     await tester.pumpAndSettle();
     expect(find.text('Laptop cannot print'), findsOneWidget);
+
+    // Saved on the device, so it is still listed after a reload.
+    expect(LocalStore.loadRequests().first.subject, 'Laptop cannot print');
   });
 }
