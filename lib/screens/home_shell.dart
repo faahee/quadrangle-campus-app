@@ -130,6 +130,20 @@ class _HomeShellState extends State<HomeShell> {
         () => push(AppRoutes.events),
       ),
       QuickAction(
+        'Announcements',
+        Icons.campaign_rounded,
+        AppColors.goldDeep,
+        AppColors.parchment,
+        () => push(AppRoutes.announcements),
+      ),
+      QuickAction(
+        'Student services',
+        Icons.volunteer_activism_rounded,
+        AppColors.success,
+        AppColors.successTint,
+        () => push(AppRoutes.supportServices),
+      ),
+      QuickAction(
         'Digital ID',
         Icons.badge_rounded,
         AppColors.navy,

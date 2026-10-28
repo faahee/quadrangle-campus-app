@@ -108,8 +108,9 @@ class _QuickActionsSheetState extends State<_QuickActionsSheet>
                         animation: CurvedAnimation(
                           parent: _controller,
                           curve: Interval(
-                            i * 0.07,
-                            0.55 + i * 0.07,
+                            // Spread starts over the first 45%, whatever the count.
+                            i * 0.45 / count,
+                            0.55 + i * 0.45 / count,
                             curve: Curves.easeOutBack,
                           ),
                         ),

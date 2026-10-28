@@ -172,8 +172,8 @@ class _NarrowBody extends StatelessWidget {
         Reveal(
           child: SectionHeader(
             title: 'Campus update',
-            actionLabel: 'All alerts',
-            onAction: () => onOpenTab(Tabs.alerts),
+            actionLabel: 'All news',
+            onAction: () => openAnnouncements(context),
           ),
         ),
         Reveal(
@@ -191,7 +191,10 @@ class _NarrowBody extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 206,
+          // Taller row when the user enlarges text.
+          height:
+              120 +
+              86 * MediaQuery.textScalerOf(context).scale(1).clamp(1.0, 2.0),
           child: ListView(
             scrollDirection: Axis.horizontal,
             clipBehavior: Clip.none,
@@ -320,8 +323,8 @@ class _WideBody extends StatelessWidget {
                 from: RevealFrom.right,
                 child: SectionHeader(
                   title: 'Campus update',
-                  actionLabel: 'All alerts',
-                  onAction: () => onOpenTab(Tabs.alerts),
+                  actionLabel: 'All news',
+                  onAction: () => openAnnouncements(context),
                 ),
               ),
               Reveal(

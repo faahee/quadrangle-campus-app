@@ -205,31 +205,36 @@ class DateTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color.withValues(alpha: 0.35), width: 1.2),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            day,
-            style: TextStyle(
-              fontFamily: 'Georgia',
-              fontFamilyFallback: AppStyle.serifFallback,
-              fontSize: size * 0.38,
-              height: 1.0,
-              fontWeight: FontWeight.w700,
-              color: color,
+      padding: const EdgeInsets.all(4),
+      // Shrinks the text inside the fixed tile if the user enlarges fonts.
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              day,
+              style: TextStyle(
+                fontFamily: 'Georgia',
+                fontFamilyFallback: AppStyle.serifFallback,
+                fontSize: size * 0.38,
+                height: 1.0,
+                fontWeight: FontWeight.w700,
+                color: color,
+              ),
             ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            month,
-            style: TextStyle(
-              fontSize: size * 0.19,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 1.2,
-              color: color.withValues(alpha: 0.8),
+            const SizedBox(height: 2),
+            Text(
+              month,
+              style: TextStyle(
+                fontSize: size * 0.19,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+                color: color.withValues(alpha: 0.8),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../data/models.dart';
 import '../screens/announcement_detail_screen.dart';
+import '../screens/content/announcements_screen.dart';
+import '../screens/content/support_services_screen.dart';
 import '../screens/event_detail_screen.dart';
 import '../screens/events_screen.dart';
 import '../screens/request_form_screen.dart';
@@ -26,6 +28,8 @@ class AppRoutes {
   static const String event = '/event'; // arguments: CampusEvent
   static const String events = '/events';
   static const String newRequest = '/requests/new';
+  static const String announcements = '/announcements';
+  static const String supportServices = '/support-services';
 
   /// Builds the page for [settings]. [home] is the page for the initial `/`
   /// route of a tab's navigator.
@@ -42,6 +46,8 @@ class AppRoutes {
       event => EventDetailScreen(event: settings.arguments as CampusEvent),
       events => const EventsScreen(),
       newRequest => const RequestFormScreen(),
+      announcements => const AnnouncementsScreen(),
+      supportServices => const SupportServicesScreen(),
       _ => null,
     };
     if (page == null) return null;

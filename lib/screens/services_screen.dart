@@ -60,6 +60,28 @@ class _ServicesScreenState extends State<ServicesScreen> {
                         ),
                 ),
               ),
+              const SizedBox(height: 14),
+              Row(
+                children: [
+                  Expanded(
+                    child: _EntryCard(
+                      icon: Icons.campaign_rounded,
+                      title: 'Announcements',
+                      subtitle: '8 campus updates',
+                      onTap: () => openAnnouncements(context),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _EntryCard(
+                      icon: Icons.volunteer_activism_rounded,
+                      title: 'Student services',
+                      subtitle: 'Support & wellbeing',
+                      onTap: () => openSupportServices(context),
+                    ),
+                  ),
+                ],
+              ),
               const SizedBox(height: 16),
               Text(
                 '${results.length} service${results.length == 1 ? '' : 's'} available',
@@ -134,6 +156,60 @@ class _ServicesScreenState extends State<ServicesScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _EntryCard extends StatelessWidget {
+  const _EntryCard({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return CampusCard(
+      margin: EdgeInsets.zero,
+      padding: const EdgeInsets.all(14),
+      onTap: onTap,
+      child: Row(
+        children: [
+          IconTile(
+            icon: icon,
+            color: AppColors.abyss,
+            background: AppColors.flame,
+            size: 42,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  maxLines: 2,
+                  style: const TextStyle(
+                    fontSize: 14.5,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  style: const TextStyle(fontSize: 12, color: AppColors.muted),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

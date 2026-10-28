@@ -19,5 +19,11 @@ void openEvent(BuildContext context, CampusEvent event) =>
 void openEvents(BuildContext context) =>
     Navigator.of(context).pushNamed(AppRoutes.events);
 
+void openAnnouncements(BuildContext context) =>
+    Navigator.of(context).pushNamed(AppRoutes.announcements);
+
+void openSupportServices(BuildContext context) =>
+    Navigator.of(context).pushNamed(AppRoutes.supportServices);
+
 void openRequestForm(BuildContext context) =>
     Navigator.of(context).pushNamed(AppRoutes.newRequest);

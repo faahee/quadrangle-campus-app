@@ -52,76 +52,83 @@ class FloatingNavBar extends StatelessWidget {
       ),
     );
 
-    return AnimatedSlide(
-      offset: visible ? Offset.zero : const Offset(0, 1.4),
-      duration: const Duration(milliseconds: 360),
-      curve: Curves.easeOutCubic,
-      child: AnimatedOpacity(
-        opacity: visible ? 1 : 0,
-        duration: const Duration(milliseconds: 260),
-        child: SafeArea(
-          top: false,
-          minimum: const EdgeInsets.fromLTRB(16, 0, 16, 14),
-          child: Align(
-            heightFactor: 1,
-            child: Container(
-              height: _pillHeight + _raise,
-              constraints: const BoxConstraints(maxWidth: 480),
-              child: Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.bottomCenter,
-                children: [
-                  // Soft shadow under the pill
-                  Positioned.fill(
-                    top: _raise,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(34),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.navy.withValues(alpha: 0.18),
-                            blurRadius: 30,
-                            offset: const Offset(0, 12),
-                          ),
-                        ],
+    // Nav labels stay compact even with very large system text.
+    return MediaQuery.withClampedTextScaling(
+      maxScaleFactor: 1.15,
+      child: AnimatedSlide(
+        offset: visible ? Offset.zero : const Offset(0, 1.4),
+        duration: const Duration(milliseconds: 360),
+        curve: Curves.easeOutCubic,
+        child: AnimatedOpacity(
+          opacity: visible ? 1 : 0,
+          duration: const Duration(milliseconds: 260),
+          child: SafeArea(
+            top: false,
+            minimum: const EdgeInsets.fromLTRB(16, 0, 16, 14),
+            child: Align(
+              heightFactor: 1,
+              child: Container(
+                height: _pillHeight + _raise,
+                constraints: const BoxConstraints(maxWidth: 480),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    // Soft shadow under the pill
+                    Positioned.fill(
+                      top: _raise,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(34),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.navy.withValues(alpha: 0.18),
+                              blurRadius: 30,
+                              offset: const Offset(0, 12),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  // Frosted glass pill
-                  Positioned.fill(
-                    top: _raise,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(34),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.86),
-                            borderRadius: BorderRadius.circular(34),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.9),
+                    // Frosted glass pill
+                    Positioned.fill(
+                      top: _raise,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(34),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.86),
+                              borderRadius: BorderRadius.circular(34),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.9),
+                              ),
                             ),
-                          ),
-                          child: Row(
-                            children: [
-                              item(0),
-                              item(1),
-                              const SizedBox(width: 72),
-                              item(2),
-                              item(3),
-                            ],
+                            child: Row(
+                              children: [
+                                item(0),
+                                item(1),
+                                const SizedBox(width: 72),
+                                item(2),
+                                item(3),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  // Raised centre action button
-                  Positioned(
-                    top: 0,
-                    child: _CenterButton(open: centerOpen, onTap: onCenterTap),
-                  ),
-                ],
+                    // Raised centre action button
+                    Positioned(
+                      top: 0,
+                      child: _CenterButton(
+                        open: centerOpen,
+                        onTap: onCenterTap,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
